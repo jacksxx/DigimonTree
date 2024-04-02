@@ -20,6 +20,8 @@ const Page = () => {
   }, [isLoading, digimons]);
 
   function digimonsFilter(name: string) {
+    currentPage == 1
+    setCurrentPage(1);
     setFilterDigimons(
       digimons?.filter((e: AllDigimon) =>
         e.name.toLowerCase().includes(name.trim().toLowerCase())
@@ -27,7 +29,8 @@ const Page = () => {
     );
   }
   const onPageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
+    console.log('teste',pageNumber)
+    setCurrentPage((_)=>pageNumber);
   };
 
   if (isLoading) {
