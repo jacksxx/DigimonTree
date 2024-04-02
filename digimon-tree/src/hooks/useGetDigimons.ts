@@ -9,7 +9,7 @@ export const useGetDigimons = () => {
     isLoading,
   } = useQuery({
     queryKey: ["digimons"],
-    queryFn: getAllDigimons,
+    queryFn: () => getAllDigimons(20),
     refetchOnWindowFocus: true,
   });
 

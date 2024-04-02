@@ -1,8 +1,6 @@
 export type Digimon = {
   id: number;
-  name: string;
-  image: string;
-  href: string;
+  name: string;  
   xAntibody: boolean;
   levels: [
     {

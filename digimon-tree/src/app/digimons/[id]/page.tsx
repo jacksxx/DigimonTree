@@ -7,12 +7,12 @@ import Link from "next/link";
 import React from "react";
 
 const PersonalPage = (params: any) => {
-  const { digimon, isError, isLoading, refetch} = useGetDigimonById(
+  const { digimon, isError, isLoading, refetch } = useGetDigimonById(
     params.params.id
-  );  
-  refetch()
+  );
+  refetch();
 
-  if (isLoading ) {
+  if (isLoading) {
     return <Loading message="Carregando digimon" />;
   }
   if (isError || !digimon) {
@@ -22,13 +22,14 @@ const PersonalPage = (params: any) => {
     <>
       <Link
         href={"/digimons"}
-        className="flex flex-col ring-1 ring-blue-400 bg-slate-200 p-1  w-[70px] text-center rounded-full font-medium"
+        className="flex flex-col ring-1 ring-blue-400 bg-slate-200 p-1 mb-10 w-[70px] text-center rounded-full font-medium"
       >
         Voltar
       </Link>
       <div className="flex items-center justify-center">
         <DigiCard digimons={digimon} key={digimon.id} />
       </div>
+      <div className="grid grid-flow-col grid-cols-2"></div>
     </>
   );
 };

@@ -6,8 +6,8 @@ import FieldSets from "./FieldSets";
 
 const DigiCard = ({ digimons }: { digimons: Digimon }) => {
   const { srcimg, level, attribute, type, field, fieldimg } =
-    useDigimon(digimons);
-
+    useDigimon(digimons);  
+    
   return (
     <div
       className="m-8 rounded-lg border-[1px] border-black shadow-sm shadow-black bg-white hover:scale-110 max-w-[750px] flex flex-col min-w-[350px] pt-2 pb-5 gap-y-5"
