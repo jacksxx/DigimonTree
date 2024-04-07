@@ -1,6 +1,11 @@
 import { Digimon } from "@/types/Digimon";
 
 export const useDigimon = (digimon: Digimon) => {
+  if (!digimon || !digimon.images) {
+    // Se for nulo, retorne um valor padrão ou lance um erro, dependendo do caso
+    throw new Error("Digimon ou Digimon.images é nulo.");
+  }
+
   //digimons Base
   const srcimg = digimon.images.map((img) => img.href).join("");
   const level = digimon.levels.map((lvl) => lvl.level.split(" "));
@@ -10,20 +15,6 @@ export const useDigimon = (digimon: Digimon) => {
   const fieldimg = digimon.fields.map((fimg) =>
     fimg.image.split(",").join(" ")
   );
-  //next Evo
-  const nextEvoName = digimon.nextEvolutions.map((di) => di.digimon).join(" ");
-  const nextEvoId = digimon.nextEvolutions.map((di) => di.id);
-  const nextEvoImg = digimon.nextEvolutions.map((di) => di.image).join("");
-  const nextEvoCondition = digimon.nextEvolutions
-    .map((di) => di.condition)
-    .join(" ");
-  //prior Evo
-  const preEvoName = digimon.priorEvolutions.map((di) => di.digimon).join(" ");
-  const preEvoId = digimon.priorEvolutions.map((di) => di.id);
-  const preEvoImg = digimon.priorEvolutions.map((di) => di.image).join("");
-  const preEvoCondition = digimon.priorEvolutions
-    .map((di) => di.condition)
-    .join(" ");
 
   return {
     srcimg,
@@ -32,13 +23,5 @@ export const useDigimon = (digimon: Digimon) => {
     type,
     field,
     fieldimg,
-    nextEvoName,
-    nextEvoId,
-    nextEvoImg,
-    nextEvoCondition,
-    preEvoName,
-    preEvoId,
-    preEvoImg,
-    preEvoCondition,
   };
 };
