@@ -19,7 +19,7 @@ const Card = (params: cardProps) => {
           width={params.w}
           height={params.h}
           priority          
-          className="h-full w-full rounded-md"
+          className="h-full w-full rounded-md object-cover"
         />
       </div>
       <div className="m-2  text-center">

@@ -20,11 +20,11 @@ const SearchInput = ({ filterDigimon }: iSearchDigimon) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <input
-        className="px-2 bg-red-200/50 ring-1 ring-black rounded-md w-[300px] placeholder:text-black/70 animate-pulse hover:animate-none focus:animate-none focus:ring-black focus:ring-2 outline-none"
+        className="px-2 bg-red-300/70 ring-1 ring-black rounded-md w-[300px] placeholder:text-black focus:ring-black focus:ring-2 outline-none"
         placeholder="Exemplo: Dukemon"
         {...register("name")}
         onChange={handleTagsChange}
-      />      
+      />
     </form>
   );
 };
