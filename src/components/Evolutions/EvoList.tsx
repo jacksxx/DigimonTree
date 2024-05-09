@@ -16,9 +16,28 @@ const EvoList = ({ digimon, evo, evolutions }: EvoListProps) => {
   console.log("evolutions", evolutions);
   return (
     <>
-      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {evolutions.map((evoItem: Evolution) => (
-          <Link
+          <EvoCard
+            h={150}
+            w={150}
+            key={evoItem.id}
+            evo={evo}
+            evolutions={evoItem}
+            extra={
+              <Evolutions evolutions={evoItem} nextEve={evo} key={evoItem.id} />
+            }
+          />
+        ))}
+      </ul>
+    </>
+  );
+};
+
+export default EvoList;
+
+{
+  /* <Link
             key={evoItem.id}
             href={`/digimons/${evoItem.id}`}
             className="hover:scale-105"
@@ -34,11 +53,5 @@ const EvoList = ({ digimon, evo, evolutions }: EvoListProps) => {
               }
               
             />
-          </Link>
-        ))}
-      </ul>
-    </>
-  );
-};
-
-export default EvoList;
+          </Link> */
+}
