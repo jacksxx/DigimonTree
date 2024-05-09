@@ -15,7 +15,9 @@
     "node": "^21.7.1",
     "react": "^18",
     "react-dom": "^18",
-    "react-hook-form": "^7.51.1"
+    "react-hook-form": "^7.51.1",
+    "react-icons": "^5.2.1",
+    "styled-components": "^6.1.10"
   },
   "devDependencies": {
     "@types/jquery": "^3.5.29",
