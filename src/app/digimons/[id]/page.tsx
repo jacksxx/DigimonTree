@@ -1,8 +1,8 @@
 "use client";
-import DigiCard from "@/components/DigiCard";
-import EvoList from "@/components/EvoList";
-import Loading from "@/components/Loading";
-import NoDataMessage from "@/components/NoDataMessage";
+import DigiCard from "@/components/DigimonId/DigiCard";
+import EvoList from "@/components/Evolutions/EvoList";
+import Loading from "@/components/Loading/Loading";
+import NoDataMessage from "@/components/NoData/NoDataMessage";
 import { useGetDigimonById } from "@/hooks/useGetDigimons";
 import Link from "next/link";
 import React from "react";
@@ -30,10 +30,10 @@ const PersonalPage = (params: any) => {
       <div className="flex items-center justify-center pb-4">
         <DigiCard digimons={digimon} key={digimon.id} />
       </div>
-      <div className="grid grid-flow-col grid-cols-2">
-        <div className=" flex flex-col gap-y-3">
-          <h1 className="text-center text-[20px] font-semibold bg-red-200/60 underline">
-            Evoluções Anteriores:
+      <div className="grid grid-flow-col grid-cols-2 border-b-2 border-black ">
+        <div className=" flex flex-col gap-y-3 border-r-[1px] border-black items-center">
+          <h1 className="text-center text-[20px] font-semibold bg-black underline p-2 text-yellow-500 rounded-sm">
+            Evoluções Anteriores
           </h1>
           <EvoList
             digimon={digimon}
@@ -42,9 +42,9 @@ const PersonalPage = (params: any) => {
             evolutions={digimon.priorEvolutions}
           />
         </div>
-        <div className=" flex flex-col gap-y-3">
-          <h1 className="text-center text-[20px] font-semibold bg-red-200/60 underline">
-            Proximas Evoluções:
+        <div className=" flex flex-col gap-y-3 border-l-[1px] border-black items-center ">
+          <h1 className="text-center text-[20px] font-semibold bg-black text-yellow-500 rounded-sm p-2 underline">
+            Proximas Evoluções
           </h1>
           <EvoList
             digimon={digimon}

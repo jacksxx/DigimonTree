@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import * as S from "./styles";
 
 interface PaginationProps {
   currentPage: number;
@@ -7,61 +8,70 @@ interface PaginationProps {
   onPageChange: (pageNumber: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
+const Pagination = ({
   currentPage: initialPage,
   totalPages,
   onPageChange,
-}) => {
+}: PaginationProps) => {
   const { register, handleSubmit, setValue } = useForm<{
     currentPage: number;
   }>();
   const onSubmit: SubmitHandler<{ currentPage: number }> = (data, event) => {
     event?.preventDefault();
   };
+
   setValue("currentPage", initialPage);
+  //Input Change Handle of Current Page
   const handleIChange = (event: any) => {
     onPageChange(event.target.value);
   };
+  //Previous Button Handle
   const handlePrevClick = () => {
     setValue("currentPage", initialPage--);
     onPageChange(initialPage--);
   };
+  //Next Button Handle
   const handleNextClick = () => {
     setValue("currentPage", initialPage++);
     onPageChange(initialPage++);
   };
-
+  useEffect(() => {
+    if (initialPage <= 0) {
+      onPageChange(1);
+    } else if (initialPage > totalPages) {
+      onPageChange(totalPages);
+    }
+  }, [initialPage, totalPages, onPageChange]);
   return (
-    <div className="flex flex-row items-center justify-center pt-5">
-      <div className="flex flex-row bg-red-200 px-5 py-2 border-[1px] border-black rounded-md gap-1">
-        <button
+    <S.Container>
+      <S.Wrapper>
+        <S.PrevButton
           disabled={initialPage === 1}
           onClick={handlePrevClick}
-          className="p-1 border-2 border-black rounded-full"
+          initialPage={initialPage}
         >
           Anterior
-        </button>
-        <div className="flex flex-row justify-center items-center">
+        </S.PrevButton>
+        <S.FormContainer>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <input
+            <S.InputPage
               type="text"
               {...register("currentPage")}
-              className="text-center w-[30px] outline-none"
               onChange={handleIChange}
             />
           </form>
-          <span className="font-bold pr-2">{`/ ${totalPages}`}</span>
-        </div>
-
-        <button
+          <S.TotalPages>{`/ ${totalPages}`}</S.TotalPages>
+        </S.FormContainer>
+        <S.NextButton
           disabled={initialPage === totalPages}
           onClick={handleNextClick}
-          className="p-1 border-2 border-black rounded-full"
+          initialPage={initialPage}
+          totalPages={totalPages}
         >
           Próxima
-        </button>
-      </div>
-    </div>
+        </S.NextButton>
+      </S.Wrapper>
+    </S.Container>
   );
 };
 

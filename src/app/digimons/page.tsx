@@ -1,9 +1,9 @@
 "use client";
-import DigimonList from "@/components/DigimonList";
-import Loading from "@/components/Loading";
-import NoDataMessage from "@/components/NoDataMessage";
-import Pagination from "@/components/Pagination";
-import SearchInput from "@/components/SearchInput";
+import DigimonList from "@/components/AllDigimons/DigimonList";
+import Loading from "@/components/Loading/Loading";
+import NoDataMessage from "@/components/NoData/NoDataMessage";
+import Pagination from "@/components/Pagination/Pagination";
+import SearchInput from "@/components/SearchInput/SearchInput";
 import { useGetDigimons } from "@/hooks/useGetDigimons";
 import { AllDigimon } from "@/types/AllDigimon";
 import React, { useEffect, useState } from "react";
@@ -13,14 +13,8 @@ const Page = () => {
   const [filterDigimons, setFilterDigimons] = useState<AllDigimon[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  useEffect(() => {
-    if (!isLoading && digimons) {
-      setFilterDigimons(digimons);
-    }
-  }, [isLoading, digimons]);
-
   function digimonsFilter(name: string) {
-    currentPage == 1
+    currentPage == 1;
     setCurrentPage(1);
     setFilterDigimons(
       digimons?.filter((e: AllDigimon) =>
@@ -28,11 +22,18 @@ const Page = () => {
       ) ?? []
     );
   }
+  //Total de Paginas
+  const totalPages = Math.ceil(filterDigimons.length / 20);
   const onPageChange = (pageNumber: number) => {
-    console.log('teste',pageNumber)
-    setCurrentPage((_)=>pageNumber);
+    console.log("teste", pageNumber);
+    setCurrentPage((_) => pageNumber);
   };
-
+  useEffect(() => {
+    if (!isLoading && digimons) {
+      setFilterDigimons(digimons);
+    }
+  }, [isLoading, digimons]);
+  
   if (isLoading) {
     return <Loading message="Carregando digimons" />;
   }
@@ -48,16 +49,18 @@ const Page = () => {
 
   return (
     <>
-      <div className="flex flex-col text-center justify-center pb-5">
-        <h1 className="text-[18px] text-black/80 underline font-bold">
-          Procure seu digimon aqui
-        </h1>
-        <SearchInput filterDigimon={digimonsFilter} />
+      <div className="flex flex-col text-center justify-center pb-5 items-center ">
+        <div className="flex flex-col bg-black/70 w-fit p-2 rounded-lg gap-2 ring-2 ring-yellow-500/80">
+          <h1 className="text-[20px] text-yellow-500/80 underline underline-offset-2 font-bold">
+            Procure seu digimon aqui
+          </h1>
+          <SearchInput filterDigimon={digimonsFilter} />
+        </div>
       </div>
       {digimons ? <DigimonList digimon={currentDigimons} /> : <p>Error</p>}
       <Pagination
         currentPage={currentPage}
-        totalPages={Math.ceil(filterDigimons.length / 20)}
+        totalPages={totalPages}
         onPageChange={onPageChange}
       />
     </>

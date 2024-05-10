@@ -18,7 +18,7 @@ const About = () => {
         <br />
         <Link
           href={"/digimons"}
-          className="text-center text-[30px] font-semibold rounded-md px-3 bg-gradient-radial from-red-500 to-slate-50 ring-2 ring-red-400 transition duration-1000 delay-100 ease-in-out  hover:scale-110 sm:hover:scale-125 hover:from-red-600/80 hover:to-black/70 hover:ring-4 hover:ring-red-600 hover:font-bold hover:text-yellow-500 animate-pulse  hover:animate-none md:hover:scale-150"
+          className="text-center text-[30px] font-semibold rounded-md px-3 bg-gradient-radial from-red-500 to-slate-50 ring-2 ring-red-400 transition duration-1000 delay-100 ease-in-out  hover:scale-105 sm:hover:scale-125 hover:from-red-500 hover:to-black hover:ring-4 hover:ring-yellow-500 hover:font-bold hover:text-yellow-500/80 animate-pulse  hover:animate-none md:hover:scale-150"
         >
           Vamos conhecer os Digimons!!!
         </Link>
