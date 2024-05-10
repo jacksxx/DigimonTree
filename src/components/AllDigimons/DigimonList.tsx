@@ -2,10 +2,11 @@ import React from "react";
 import Card from "./Card";
 import Link from "next/link";
 import { AllDigimon } from "@/types/AllDigimon";
+import * as S from './styles'
 
 const DigimonList = ({ digimon }: { digimon: AllDigimon[] }) => {
   return (
-    <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 ">
+    <S.ListaUl>
       {digimon.map((digimons: AllDigimon) => (
         <Link
           key={digimons.id}
@@ -15,7 +16,7 @@ const DigimonList = ({ digimon }: { digimon: AllDigimon[] }) => {
           <Card h={350} w={350} digimons={digimons} key={digimons.id} />
         </Link>
       ))}
-    </ul>
+    </S.ListaUl>
   );
 };
 
