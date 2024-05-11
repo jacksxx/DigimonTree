@@ -3,62 +3,62 @@ import Image from "next/image";
 import { Digimon } from "@/types/Digimon";
 import { useDigimon } from "@/hooks/useDigimon";
 import FieldSets from "./FieldSets";
+import * as S from './styles'
 
 const DigiCard = ({ digimons }: { digimons: Digimon }) => {
   const { srcimg, level, attribute, type, field, fieldimg } =
     useDigimon(digimons);
 
   return (
-    <div
-      className="m-8 rounded-lg border-[1px] border-black shadow-sm shadow-black bg-white hover:scale-110 max-w-[750px] flex flex-col min-w-[350px] pt-2 pb-5 gap-y-5 "
+    <S.Container   
       key={digimons.id}
     >
-      <p className="pt-1 text-[14px] font-extrabold italic flex flex-col text-center ">
+      <S.Id>
         {digimons.id}
-      </p>
-      <div className="overflow-hidden rounded-t-lg transition ease-in-out duration-500 hover:-scale-x-100">
+      </S.Id>
+      <S.ImageWrapper>
         <Image
           alt={digimons.name}
           src={srcimg}
           width={450}
           height={450}
           priority
-          className="h-full w-full px-[80px]  "
+          className="h-full w-full px-[80px]"
         />
-      </div>
-      <div className="m-2 flex flex-col px-1 py-1 gap-2">
+      </S.ImageWrapper>
+      <S.InfoContaniner>
         <div>
-          <h1 className="text-[20px] font-semibold underline underline-offset-2 text-center">
+          <S.Name>
             {digimons.name}
-          </h1>
+          </S.Name>
         </div>
-        <div className="grid grid-flow-col grid-cols-3 text-center">
+        <S.InfoWrapper>
           <div>
-            <h1 className="text-[26px] font-semibold underline">Level</h1>
+            <S.InfoLabel>Level</S.InfoLabel>
             {level.map((level, id) => (
-              <h2 key={id} className="font-sans italic text-[18px]">{level}</h2>
+              <S.Infos key={id}>{level}</S.Infos>
             ))}
           </div>
           <div>
-            <h1 className="text-[26px] font-semibold underline">Atributo</h1>
+            <S.InfoLabel>Atributo</S.InfoLabel>
             {attribute.map((att, id) => (
-              <h2 key={id} className="font-sans italic text-[18px]">{att}</h2>
+              <S.Infos key={id}>{att}</S.Infos>
             ))}
           </div>
           <div>
-            <h1 className="text-[26px] font-semibold underline">Tipo</h1>
+            <S.InfoLabel>Tipo</S.InfoLabel>
             {type.map((typ, id) => (
-              <h2 key={id} className="font-sans italic text-[18px]">{typ}</h2>
+              <S.Infos key={id}>{typ}</S.Infos>
             ))}
           </div>
-        </div>
-        <div className="flex flex-row justify-items-center justify-center gap-10 ">
+        </S.InfoWrapper>
+        <S.FieldSets>
           {field.map((fi, id) => (
             <FieldSets field={fi} fimg={fieldimg[id]} key={id} />
           ))}
-        </div>
-      </div>
-    </div>
+        </S.FieldSets>
+      </S.InfoContaniner>
+    </S.Container>
   );
 };
 
