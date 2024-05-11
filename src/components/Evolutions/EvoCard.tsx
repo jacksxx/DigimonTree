@@ -1,7 +1,5 @@
 import { Evolution } from "@/types/Digimon";
 import React, { ReactElement } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import EvoCardBody from "./EvoCardBody";
 
 type CardProps = {
@@ -23,6 +21,7 @@ const EvoCard = ({ w, h, extra, evo, evolutions }: CardProps) => {
             w={w}
             extra={extra}
             key={evolutions.id}
+            evo={evo}
           />
         </>
       ) : (
@@ -33,6 +32,7 @@ const EvoCard = ({ w, h, extra, evo, evolutions }: CardProps) => {
             w={w}
             extra={extra}
             key={evolutions.id}
+            evo={evo}
           />
         </>
       )}
