@@ -5,13 +5,12 @@ export const Container = styled.div<{ evo: boolean }>`
   margin: 0.5rem;
   padding: 0.5rem 0rem;
   border-radius: 0.5rem;
-  border-width: 1px;
-  border-color: black;
+  border: 2px solid black;
   box-shadow: 0 3px 8px black;
   ${({ evo }) =>
     evo == true
-      ? `background: rgba(234 179 8/0.9) `
-      : `background:rgba( 148 163 184/0.9) `}
+      ? `background: rgba(234 179 8/0.9);`
+      : `background: rgba( 148 163 184/0.9); `}
 `;
 export const ImageWrapper = styled.div`
   overflow: hidden;
@@ -65,7 +64,7 @@ export const EvoContainer = styled.div`
 export const EvoLabelCond = styled.h1`
   font-weight: 500;
   text-size: 12px;
-  padding:0 0.25rem
+  padding: 0 0.25rem;
 `;
 //styles of EvolutionsBody
 export const GButton = styled.button<{ ev: boolean }>`

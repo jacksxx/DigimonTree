@@ -23,7 +23,7 @@ const PersonalPage = (params: any) => {
     <>
       <Link
         href={"/digimons"}
-        className="flex flex-col ring-1 ring-blue-400 bg-slate-200 p-1 mb-10 w-[70px] text-center rounded-full font-medium"
+        className="flex flex-col text-yellow-300 border-2 border-yellow-500/80 bg-gradient-to-br from-red-500 to-black/90 p-2 px-5 mb-10 w-[100px] text-center rounded-full font-medium"
       >
         Voltar
       </Link>
@@ -31,8 +31,8 @@ const PersonalPage = (params: any) => {
         <DigiCard digimons={digimon} key={digimon.id} />
       </div>
       <div className="grid grid-flow-col grid-cols-2 border-b-2 border-black ">
-        <div className=" flex flex-col gap-y-3 border-r-[1px] border-black items-center">
-          <h1 className="text-center text-[20px] font-semibold bg-black underline p-2 text-yellow-500 rounded-sm">
+        <div className=" flex flex-col gap-y-3  items-center">
+          <h1 className="text-center text-[20px] font-semibold bg-black underline p-2 text-yellow-500 rounded-sm border-2 border-yellow-500 ">
             Evoluções Anteriores
           </h1>
           <EvoList
@@ -42,8 +42,8 @@ const PersonalPage = (params: any) => {
             evolutions={digimon.priorEvolutions}
           />
         </div>
-        <div className=" flex flex-col gap-y-3 border-l-[1px] border-black items-center ">
-          <h1 className="text-center text-[20px] font-semibold bg-black text-yellow-500 rounded-sm p-2 underline">
+        <div className=" flex flex-col gap-y-3 items-center ">
+          <h1 className="text-center text-[20px] font-semibold bg-black text-yellow-500 rounded-sm p-2  border-2 border-yellow-500 underline">
             Proximas Evoluções
           </h1>
           <EvoList

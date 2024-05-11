@@ -5,8 +5,8 @@ import styled from "styled-components";
 export const Container = styled.div`
   margin: 2rem;
   border-radius: 0.5rem;
-  border: 1px solid black;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: 2px solid black;
+  box-shadow: 0 2px 5px black;
   background-color: white;
   transition: transform 0.5s ease-in-out;
   &:hover {
@@ -18,9 +18,7 @@ export const Container = styled.div`
   min-width: 450px;
   padding-top: 0.5rem;
   padding-bottom: 1.25rem;
-  row-gap: 1.25rem;
-  border-width: 2px;
-  border-color: black;
+  row-gap: 1.25rem;  
   background: linear-gradient(
     -72deg,
     #ffde45,
