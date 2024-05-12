@@ -29,11 +29,11 @@ export const CardContainer = styled.div`
   border-width: 1px;
   border-color: black;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  background-color: white;
+  background-color: bisque;
 `;
 export const ImageWrapper = styled.div`
   overflow: hidden;
-  border-radius: 0.75rem;
+  border-radius: 0.75rem;  
 `;
 export const NameWrapper = styled.div`
   margin: 0.5rem;

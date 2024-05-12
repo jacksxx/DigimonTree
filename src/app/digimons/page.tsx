@@ -7,6 +7,7 @@ import SearchInput from "@/components/SearchInput/SearchInput";
 import { useGetDigimons } from "@/hooks/useGetDigimons";
 import { AllDigimon } from "@/types/AllDigimon";
 import React, { useEffect, useState } from "react";
+import * as S from "./styles";
 
 const Page = () => {
   const { digimons, isError, isLoading } = useGetDigimons();
@@ -33,7 +34,7 @@ const Page = () => {
       setFilterDigimons(digimons);
     }
   }, [isLoading, digimons]);
-  
+
   if (isLoading) {
     return <Loading message="Carregando digimons" />;
   }
@@ -49,15 +50,13 @@ const Page = () => {
 
   return (
     <>
-      <div className="flex flex-col text-center justify-center pb-5 items-center ">
-        <div className="flex flex-col bg-black/70 w-fit p-2 rounded-lg gap-2 ring-2 ring-yellow-500/80">
-          <h1 className="text-[20px] text-yellow-500/80 underline underline-offset-2 font-bold">
-            Procure seu digimon aqui
-          </h1>
+      <S.ContainerSearch>
+        <S.WrapperSearch>
+          <S.LabelSearch>Procure seu digimon aqui</S.LabelSearch>
           <SearchInput filterDigimon={digimonsFilter} />
-        </div>
-      </div>
-      {digimons ? <DigimonList digimon={currentDigimons} /> : <p>Error</p>}
+        </S.WrapperSearch>
+      </S.ContainerSearch>
+      {digimons ? <DigimonList digimon={currentDigimons} /> : <NoDataMessage />}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

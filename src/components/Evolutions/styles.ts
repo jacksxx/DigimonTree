@@ -14,6 +14,8 @@ export const Container = styled.div<{ evo: boolean }>`
 `;
 export const ImageWrapper = styled.div`
   overflow: hidden;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
   border-radius: 0.125rem;
   transition: all 0.5s ease-in-out;
   &:hover {

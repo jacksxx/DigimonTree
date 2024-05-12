@@ -11,7 +11,7 @@ type EvoListProps = {
 };
 
 const EvoList = ({ digimon, evo, evolutions }: EvoListProps) => {
-  console.log(digimon);
+  console.log(digimon.levels);
   console.log(evo);
   console.log("evolutions", evolutions);
   return (

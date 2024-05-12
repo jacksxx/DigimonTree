@@ -37,8 +37,7 @@ export const Start = styled.div`
   padding: 0.5rem;
   margin-bottom: 0.5rem;
   background-image: radial-gradient(ellipse, #dc2626, #d1d5db);
-  border: 2px solid #dc2626;
-  transition: all 1000ms ease-in-out 100ms;
+  border: 2px solid #dc2626;  
   animation: pulse 2s infinite;
   &:hover {
     transform: scale(1.05);
@@ -48,6 +47,7 @@ export const Start = styled.div`
     color: #f59e0b;
     opacity: 0.8;
     animation: none;
+    transition: all 1000ms ease-in-out 100ms;
   }
   @keyframes pulse {
     0% {

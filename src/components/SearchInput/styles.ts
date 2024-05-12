@@ -9,8 +9,8 @@ export const Form = styled.form`
 export const Input = styled.input`
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  background-color: rgba(255, 213, 79, 0.7);
-  border: 1px solid #000;
+  background: rgba(234 179 8 / 0.8);
+  border: 1px solid rgba(0, 0, 0);
   border-radius: 0.375rem;
   width: 300px;
   &::placeholder {
