@@ -2,7 +2,8 @@ import { Digimon, Evolution } from "@/types/Digimon";
 import React from "react";
 import EvoCard from "./EvoCard";
 import Evolutions from "./Evolutions";
-import * as S from './styles'
+import * as S from "./styles";
+import NoDataMessage from "../NoData/NoDataMessage";
 
 type EvoListProps = {
   digimon: Digimon;
@@ -16,20 +17,30 @@ const EvoList = ({ digimon, evo, evolutions }: EvoListProps) => {
   console.log("evolutions", evolutions);
   return (
     <>
-      <S.ListUl>
-        {evolutions.map((evoItem: Evolution) => (
-          <EvoCard
-            h={150}
-            w={150}
-            key={evoItem.id}
-            evo={evo}
-            evolutions={evoItem}
-            extra={
-              <Evolutions evolutions={evoItem} nextEve={evo} key={evoItem.id} />
-            }
-          />
-        ))}
-      </S.ListUl>
+      <>
+        {evolutions && evolutions.length > 0 ? (
+          <S.ListUl>
+            {evolutions.map((evoItem: Evolution) => (
+              <EvoCard
+                h={150}
+                w={150}
+                key={evoItem.id}
+                evo={evo}
+                evolutions={evoItem}
+                extra={
+                  <Evolutions
+                    evolutions={evoItem}
+                    nextEve={evo}
+                    key={evoItem.id}
+                  />
+                }
+              />
+            ))}
+          </S.ListUl>
+        ) : (
+          <NoDataMessage />
+        )}
+      </>
     </>
   );
 };

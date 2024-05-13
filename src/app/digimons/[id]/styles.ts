@@ -36,6 +36,7 @@ export const EvoContainer = styled.div`
   grid-auto-flow: column;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   border-bottom: 2px solid rgba(0, 0, 0);
+  padding-bottom:1rem;
   gap: 0.5rem;
 `;
 export const EvoWrapper = styled.div`

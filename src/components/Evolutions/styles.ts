@@ -56,6 +56,7 @@ export const ListUl = styled.ul`
     grid-template-columns: repeat(3, 1fr);
   }
 `;
+
 //styles of Evolutions
 export const EvoContainer = styled.div`
   display: flex;
