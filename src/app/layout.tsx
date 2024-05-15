@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import ClientLayout from "@/libs/ClientLayout";
-
-const inter = Inter({ subsets: ["latin"] });
+import MComp from "../components/MainComponent/MComp";
 
 export const metadata: Metadata = {
   title: "Digimon Tree",
@@ -17,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">      
-      <ClientLayout>{children}</ClientLayout>
+      <MComp>{children}</MComp>
     </html>
   );
 }
