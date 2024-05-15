@@ -11,13 +11,13 @@ const inter = Inter({ subsets: ["latin"] });
 
 const MComp = ({ children }: { children: ReactNode }) => {
   return (
-    <body className={inter.className}>
+    <div className={inter.className}>
       <Navbar />
       <QueryClientProvider client={queryClient}>
         <S.Container>{children}</S.Container>
       </QueryClientProvider>
       <Footer />
-    </body>
+    </div>
   );
 };
 

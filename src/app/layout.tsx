@@ -4,7 +4,7 @@ import MComp from "../components/MainComponent/MComp";
 
 export const metadata: Metadata = {
   title: "Digimon Tree",
-  description: "Search for your favorite digimon here!",  
+  description: "Search for your favorite digimon here!",
 };
 
 export default function RootLayout({
@@ -13,8 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br">      
-      <MComp>{children}</MComp>
+    <html lang="pt-br">
+      <body>
+        <MComp>{children}</MComp>
+      </body>
     </html>
   );
 }
