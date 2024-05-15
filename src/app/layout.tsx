@@ -1,11 +1,7 @@
-import type { Metadata } from "next";
+'use client'
 import "./globals.css";
 import MComp from "../components/MainComponent/MComp";
 
-export const metadata: Metadata = {
-  title: "Digimon Tree",
-  description: "Search for your favorite digimon here!",
-};
 
 export default function RootLayout({
   children,
@@ -14,6 +10,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
+      <head>
+        <title>Digimon Tree</title>
+        <meta  name="description" content="Search for your favorite digimon here!"/>
+      </head>
       <body>
         <MComp>{children}</MComp>
       </body>
