@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import MComp from "@/components/MainComponent/MComp";
+import ClientLayout from "@/libs/ClientLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">      
-      <body className={inter.className}>
-        <MComp>{children}</MComp>
-      </body>
+      <ClientLayout>{children}</ClientLayout>
     </html>
   );
 }
