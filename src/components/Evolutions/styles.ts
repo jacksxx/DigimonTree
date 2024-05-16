@@ -29,12 +29,12 @@ export const InfoWrapper = styled.div`
   text-align: center;
 `;
 export const Name = styled.h1`
-  font-size: 18px;
+  font-size: 12px;
   @media (min-width: 640px) {
-    font-size: 12px;
+    font-size: 14px;
   }
   @media (min-width: 768px) {
-    font-size: 14px;
+    font-size: 18px;
   }
   font-weight: 700;
   word-break: break-word;
@@ -65,9 +65,15 @@ export const EvoContainer = styled.div`
   gap: 0.5rem;
 `;
 export const EvoLabelCond = styled.h1`
-  font-weight: 500;
-  text-size: 12px;
+  font-weight: 500;  
   padding: 0 0.25rem;
+  font-size: 12px;
+  @media (min-width: 640px) {
+    font-size: 14px;
+  }
+  @media (min-width: 768px) {
+    font-size: 18px;
+  }
 `;
 //styles of EvolutionsBody
 export const GButton = styled.button<{ ev: boolean }>`
@@ -83,6 +89,13 @@ export const RButton = styled.button`
   border-radius: 9999px;
 `;
 export const Condition = styled.p<{ ev: boolean }>`
+  font-size: 12px;
+  @media (min-width: 640px) {
+    font-size: 14px;
+  }
+  @media (min-width: 768px) {
+    font-size: 18px;
+  }
   ${({ ev }) =>
     ev
       ? "padding: 0.25rem; font-weight: 500;"

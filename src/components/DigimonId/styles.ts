@@ -15,7 +15,7 @@ export const Container = styled.div`
   max-width: 750px;
   display: flex;
   flex-direction: column;
-  min-width: 450px;
+  min-width: 350px;
   padding-top: 0.5rem;
   padding-bottom: 1.25rem;
   row-gap: 1.25rem;  
@@ -71,7 +71,7 @@ export const Name = styled.h1`
   font-size: 26px;
   font-weight: 700;
   text-decoration-line: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 2px;  
 `;
 export const InfoWrapper = styled.div`
   display: grid;
@@ -94,5 +94,8 @@ export const FieldSets = styled.div`
   flex-direction: row;
   justify-content: center;
   justify-itens: center;
-  gap: 2.5rem;
+  gap: 1.5rem;  
+  @media (min-width: 640px) {
+    gap: 2.5rem;
+  }  
 `;

@@ -13,10 +13,9 @@ const About = () => {
         <br />
         <S.Text>
           Está sendo utilizado TypeScript, React, Next e API prévia do:
-          <span className="italic">https://digi-api.com/</span>
+          <span className="italic pl-1">https://digi-api.com/</span>
         </S.Text>
         <br />
-
         <Link href={"/digimons"}>
           <S.Start>Vamos conhecer os Digimons!!!</S.Start>
         </Link>

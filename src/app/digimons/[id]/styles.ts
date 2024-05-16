@@ -47,7 +47,7 @@ export const EvoWrapper = styled.div`
 `;
 export const EvoLabel = styled.h1`
   text-align: center;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   background: rgba(0, 0, 0);
   text-decoration-line: underline;
@@ -58,4 +58,7 @@ export const EvoLabel = styled.h1`
   border: 2px solid rgba(234 179 8);
   border-radius: 0.125rem;
   overflow-wrap: break-word;
+  @media (min-width: 640px) {
+    font-size: 20px;
+  }
 `;
