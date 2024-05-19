@@ -13,7 +13,7 @@ const DigimonList = ({ digimon }: { digimon: AllDigimon[] }) => {
           href={`/digimons/${digimons.id}`}
           className="hover:scale-105"
         >
-          <Card h={350} w={350} digimons={digimons} key={digimons.id} />
+          <Card h={300} w={350} digimons={digimons} key={digimons.id} />
         </Link>
       ))}
     </S.ListaUl>

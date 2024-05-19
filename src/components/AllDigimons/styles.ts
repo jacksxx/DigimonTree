@@ -33,7 +33,7 @@ export const CardContainer = styled.div`
 `;
 export const ImageWrapper = styled.div`
   overflow: hidden;
-  border-radius: 0.75rem;  
+  border-radius: 0.75rem;
 `;
 export const NameWrapper = styled.div`
   margin: 0.5rem;

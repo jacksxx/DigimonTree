@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import Image from "next/image";
 import { AllDigimon } from "@/types/AllDigimon";
-import * as S from './styles'
+import * as S from "./styles";
 type cardProps = {
   digimons: AllDigimon;
   w: number;
@@ -9,24 +9,22 @@ type cardProps = {
   extra?: ReactElement;
 };
 
-const Card = (params: cardProps) => {
+const Card = ({ digimons, w, h, extra }: cardProps) => {
   return (
     <S.CardContainer>
       <S.ImageWrapper>
         <Image
-          alt={params.digimons.name}
-          src={params.digimons.image}
-          width={params.w}
-          height={params.h}
-          priority          
-          className="h-full w-full rounded-md object-cover"
+          alt={digimons.name}
+          src={digimons.image}
+          width={w}
+          height={h}
+          priority
+          className={`h-full w-full rounded-md`}
         />
       </S.ImageWrapper>
       <S.NameWrapper>
-        <S.Name>
-          {params.digimons.name}
-        </S.Name>
-      </S.NameWrapper>      
+        <S.Name>{digimons.name}</S.Name>
+      </S.NameWrapper>
     </S.CardContainer>
   );
 };

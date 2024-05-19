@@ -3,6 +3,7 @@ import React, { ReactElement } from "react";
 import Image from "next/image";
 import { Evolution } from "@/types/Digimon";
 import * as S from './styles'
+import { useEvolution } from "@/hooks/useDigimon";
 
 
 type CardProps = {
@@ -10,10 +11,12 @@ type CardProps = {
     h: number;
     extra?: ReactElement;    
     evolutions: Evolution;
-    evo:boolean
+    evo:boolean;
   };
 
 const EvoCardBody = ({ w, h, extra, evolutions, evo }: CardProps) => {
+  const {name} = useEvolution(evolutions)
+  console.log(name)
   return (
     <S.Container evo={evo} >
       <Link key={evolutions.id} href={`/digimons/${evolutions.id}`}>
@@ -30,7 +33,7 @@ const EvoCardBody = ({ w, h, extra, evolutions, evo }: CardProps) => {
         </S.ImageWrapper>
         <S.InfoWrapper>
           <S.Name>
-            {evolutions.digimon}
+            {name}
           </S.Name>
         </S.InfoWrapper>
       </Link>

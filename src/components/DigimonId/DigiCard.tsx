@@ -3,22 +3,18 @@ import Image from "next/image";
 import { Digimon } from "@/types/Digimon";
 import { useDigimon } from "@/hooks/useDigimon";
 import FieldSets from "./FieldSets";
-import * as S from './styles'
+import * as S from "./styles";
 
 const DigiCard = ({ digimons }: { digimons: Digimon }) => {
-  const { srcimg, level, attribute, type, field, fieldimg } =
+  const { name, srcimg, level, attribute, type, field, fieldimg } =
     useDigimon(digimons);
 
   return (
-    <S.Container   
-      key={digimons.id}
-    >
-      <S.Id>
-        {digimons.id}
-      </S.Id>
+    <S.Container key={digimons.id}>
+      <S.Id>{digimons.id}</S.Id>
       <S.ImageWrapper>
         <Image
-          alt={digimons.name}
+          alt={name}
           src={srcimg}
           width={450}
           height={450}
@@ -28,9 +24,7 @@ const DigiCard = ({ digimons }: { digimons: Digimon }) => {
       </S.ImageWrapper>
       <S.InfoContaniner>
         <div>
-          <S.Name>
-            {digimons.name}
-          </S.Name>
+          <S.Name>{name}</S.Name>
         </div>
         <S.InfoWrapper>
           <div>

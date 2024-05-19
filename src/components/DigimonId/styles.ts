@@ -15,7 +15,7 @@ export const Container = styled.div`
   max-width: 750px;
   display: flex;
   flex-direction: column;
-  min-width: 350px;
+  min-width: 300px;
   padding-top: 0.5rem;
   padding-bottom: 1.25rem;
   row-gap: 1.25rem;  

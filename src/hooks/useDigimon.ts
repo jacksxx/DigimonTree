@@ -1,4 +1,4 @@
-import { Digimon } from "@/types/Digimon";
+import { Digimon, Evolution } from "@/types/Digimon";
 
 export const useDigimon = (digimon: Digimon) => {
   if (!digimon || !digimon.images) {
@@ -7,6 +7,7 @@ export const useDigimon = (digimon: Digimon) => {
   }
 
   //digimons Base
+  const name = digimon.name.split(" ").map((name) => name).join("")
   const srcimg = digimon.images.map((img) => img.href).join("");
   const level = digimon.levels.map((lvl) => lvl.level.split(" "));
   const attribute = digimon.attributes.map((att) => att.attribute.split(" "));
@@ -17,6 +18,7 @@ export const useDigimon = (digimon: Digimon) => {
   );
 
   return {
+    name,
     srcimg,
     level,
     attribute,
@@ -25,3 +27,11 @@ export const useDigimon = (digimon: Digimon) => {
     fieldimg,
   };
 };
+
+export const useEvolution = (evolution: Evolution) => {
+
+  const name = evolution.digimon.split(" ").map((name) => name).join(" ")
+  return {
+    name,    
+  };
+}

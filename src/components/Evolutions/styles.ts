@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 //styles of EvoCardBody
 export const Container = styled.div<{ evo: boolean }>`
+  display: flex;
+  flex-direction: column;
   margin: 0.5rem;
   padding: 0.5rem 0rem;
   border-radius: 0.5rem;
@@ -41,9 +43,12 @@ export const Name = styled.h1`
   padding: 0.25rem;
 `;
 export const Extra = styled.div`
-  display: block;
+  display: flex;
+  flex-direction: column;
   text-align: center;
   justify-content: center;
+  position: stick;
+  bottom: 0px;
 `;
 //styles of EvoList
 export const ListUl = styled.ul`
@@ -65,7 +70,7 @@ export const EvoContainer = styled.div`
   gap: 0.5rem;
 `;
 export const EvoLabelCond = styled.h1`
-  font-weight: 500;  
+  font-weight: 500;
   padding: 0 0.25rem;
   font-size: 12px;
   @media (min-width: 640px) {
