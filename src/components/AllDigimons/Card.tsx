@@ -18,8 +18,8 @@ const Card = ({ digimons, w, h, extra }: cardProps) => {
           src={digimons.image}
           width={w}
           height={h}
-          priority
-          className={`h-full w-full rounded-md`}
+          priority          
+          className={`min-h-[${h}px] xl:min-h-[450px] w-auto h-auto rounded-md`}
         />
       </S.ImageWrapper>
       <S.NameWrapper>

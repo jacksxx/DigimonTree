@@ -33,10 +33,12 @@ export const InfoWrapper = styled.div`
 export const Name = styled.h1`
   font-size: 12px;
   @media (min-width: 640px) {
-    font-size: 14px;
+    font-size: 12px;
+    font-weight: 600;
   }
   @media (min-width: 768px) {
-    font-size: 18px;
+    font-size: 14px;
+    font-weight: 600;
   }
   font-weight: 700;
   word-break: break-word;
@@ -74,10 +76,10 @@ export const EvoLabelCond = styled.h1`
   padding: 0 0.25rem;
   font-size: 12px;
   @media (min-width: 640px) {
-    font-size: 14px;
+    font-size: 12px;
   }
   @media (min-width: 768px) {
-    font-size: 18px;
+    font-size: 14px;
   }
 `;
 //styles of EvolutionsBody
@@ -99,7 +101,7 @@ export const Condition = styled.p<{ ev: boolean }>`
     font-size: 14px;
   }
   @media (min-width: 768px) {
-    font-size: 18px;
+    font-size: 14px;
   }
   ${({ ev }) =>
     ev
