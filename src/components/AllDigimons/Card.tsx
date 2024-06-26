@@ -9,7 +9,7 @@ type cardProps = {
   extra?: ReactElement;
 };
 
-const Card = ({ digimons, w, h, extra }: cardProps) => {
+const Card = ({ digimons, w, h }: cardProps) => {
   return (
     <S.CardContainer>
       <S.ImageWrapper>
@@ -19,7 +19,7 @@ const Card = ({ digimons, w, h, extra }: cardProps) => {
           width={w}
           height={h}
           priority          
-          className={`min-h-[${h}px] xl:min-h-[450px] w-auto h-auto rounded-md`}
+          className={`min-h-[350px] xl:min-h-[450px] w-full rounded-md`}
         />
       </S.ImageWrapper>
       <S.NameWrapper>
