@@ -1,4 +1,3 @@
-"use client";
 import "./globals.css";
 import MComp from "../components/MainComponent/MComp";
 import StyledComponentsRegistry from "../libs/Registy";

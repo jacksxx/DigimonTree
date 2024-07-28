@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Footer = styled.footer`
-  position: fixed;
+  position: static;
   width: 100%;
   display: flex;
   flex-direction: column;

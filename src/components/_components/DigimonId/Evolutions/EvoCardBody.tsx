@@ -1,21 +1,18 @@
 import Link from "next/link";
 import React, { ReactElement } from "react";
 import Image from "next/image";
-import { Evolution } from "@/types/Digimon";
+import { Evolution } from "@/types/DigiAll";
 import * as S from "./styles";
 import { useEvolution } from "@/hooks/useDigimon";
 
 type CardProps = {
-  w: number;
-  h: number;
   extra?: ReactElement;
   evolutions: Evolution;
   evo: boolean;
 };
 
-const EvoCardBody = ({ w, h, extra, evolutions, evo }: CardProps) => {
+const EvoCardBody = ({ extra, evolutions, evo }: CardProps) => {
   const { name } = useEvolution(evolutions);
-  console.log(name);
   return (
     <S.Container evo={evo}>
       <Link key={evolutions.id} href={`/digimons/${evolutions.id}`}>
@@ -24,8 +21,8 @@ const EvoCardBody = ({ w, h, extra, evolutions, evo }: CardProps) => {
             key={evolutions.id}
             alt={evolutions.digimon}
             src={evolutions.image}
-            width={w}
-            height={h}
+            width={150}
+            height={150}
             priority
             className={`sm:min-h-[150px] md:min-h-[200px] w-full block rounded-md`}
           />

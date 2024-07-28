@@ -1,9 +1,9 @@
 import React, { ReactElement } from "react";
 import Image from "next/image";
-import { AllDigimon } from "@/types/AllDigimon";
 import * as S from "./styles";
+import { DigiAll } from "@/types/DigiAll";
 type cardProps = {
-  digimons: AllDigimon;
+  digimons: DigiAll;
   w: number;
   h: number;
   extra?: ReactElement;
@@ -11,14 +11,14 @@ type cardProps = {
 
 const Card = ({ digimons, w, h }: cardProps) => {
   return (
-    <S.CardContainer>
+    <S.CardContainer key={digimons.id}>
       <S.ImageWrapper>
         <Image
           alt={digimons.name}
           src={digimons.image}
           width={w}
           height={h}
-          priority          
+          priority
           className={`min-h-[350px] xl:min-h-[450px] w-full rounded-md`}
         />
       </S.ImageWrapper>

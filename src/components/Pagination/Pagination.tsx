@@ -13,7 +13,7 @@ const Pagination = ({
   totalPages,
   onPageChange,
 }: PaginationProps) => {
-  const { register, handleSubmit, setValue } = useForm<{
+  const { handleSubmit, register, setValue } = useForm<{
     currentPage: number;
   }>();
   const onSubmit: SubmitHandler<{ currentPage: number }> = (data, event) => {
@@ -29,14 +29,16 @@ const Pagination = ({
   const handlePrevClick = () => {
     setValue("currentPage", initialPage--);
     onPageChange(initialPage--);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
   //Next Button Handle
   const handleNextClick = () => {
     setValue("currentPage", initialPage++);
     onPageChange(initialPage++);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
   useEffect(() => {
-    if (initialPage <= 0) {
+    if (initialPage <= 1) {
       onPageChange(1);
     } else if (initialPage > totalPages) {
       onPageChange(totalPages);
@@ -56,6 +58,7 @@ const Pagination = ({
           <form onSubmit={handleSubmit(onSubmit)}>
             <S.InputPage
               type="text"
+              value={initialPage}
               {...register("currentPage")}
               onChange={handleIChange}
             />

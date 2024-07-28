@@ -31,12 +31,18 @@ export const CardContainer = styled.div`
   justify-content: center;
   padding-bottom: 1rem;
 `;
+export const InfoContainers = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+`;
 export const EvoContainer = styled.div`
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   border-bottom: 2px solid rgba(0, 0, 0);
-  padding-bottom:1rem;
+  padding-bottom: 1rem;
   gap: 0.5rem;
 `;
 export const EvoWrapper = styled.div`
@@ -45,7 +51,7 @@ export const EvoWrapper = styled.div`
   row-gap: 0.75rem;
   align-items: center;
 `;
-export const EvoLabel = styled.h1`
+export const EvoLabel = styled.button`
   text-align: center;
   font-size: 16px;
   font-weight: 600;
@@ -55,10 +61,14 @@ export const EvoLabel = styled.h1`
   padding-left: 1.55rem;
   padding-right: 1.55rem;
   color: rgb(234 179 8);
+  box-shadow: 0 8px 8px black;
   border: 2px solid rgba(234 179 8);
-  border-radius: 0.125rem;
+  border-radius: 2rem;
   overflow-wrap: break-word;
   @media (min-width: 640px) {
     font-size: 20px;
+  }
+  &:hover {
+    transform: scale(0.95);
   }
 `;

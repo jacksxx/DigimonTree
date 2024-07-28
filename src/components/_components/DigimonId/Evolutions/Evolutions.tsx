@@ -1,4 +1,4 @@
-import { Evolution } from "@/types/Digimon";
+import { Evolution } from "@/types/DigiAll";
 import React, { useState } from "react";
 import { FaChevronCircleDown } from "react-icons/fa";
 import * as S from "./styles";

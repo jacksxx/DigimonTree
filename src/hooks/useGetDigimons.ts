@@ -1,5 +1,5 @@
 import { getAllDigimons, getDigimonById } from "@/services/DigimonService";
-import { Digimon } from "@/types/Digimon";
+import { DigiAll } from "@/types/DigiAll";
 import { useQuery } from "@tanstack/react-query";
 
 export const useGetDigimons = () => {
@@ -10,7 +10,6 @@ export const useGetDigimons = () => {
   } = useQuery({
     queryKey: ["digimons"],
     queryFn: () => getAllDigimons(20),
-    refetchOnWindowFocus: true,
   });
 
   return { digimons, isError, isLoading };
@@ -22,10 +21,9 @@ export const useGetDigimonById = (id: number) => {
     isError,
     isLoading,
     refetch,
-  } = useQuery<Digimon>({
+  } = useQuery<DigiAll>({
     queryKey: ["digimon"],
     queryFn: () => getDigimonById(id),
-    refetchOnWindowFocus: true,
   });
   return { digimon, isError, isLoading, refetch };
 };

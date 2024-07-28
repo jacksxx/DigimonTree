@@ -8,12 +8,22 @@ const About = () => {
     <S.Container>
       <S.Wrapper>
         <S.Header>
-          Essa é uma página criada para catalogar e listar Digimons
+          Essa é uma página criada para listar e procurar seus Digimons
+          favoritos
         </S.Header>
         <br />
         <S.Text>
-          Está sendo utilizado TypeScript, React, Next e API prévia do:
-          <span className="italic pl-1">https://digi-api.com/</span>
+          Está sendo utilizado principalmente: TypeScript, Next,
+          Styled-Components.
+        </S.Text>
+        <S.Text>
+          API :
+          <Link
+            href={"https://digi-api.com/"}
+            className="ml-1 text-blue-600 hover:underline hover:italic"
+          >
+            digi-api.com
+          </Link>
         </S.Text>
         <br />
         <Link href={"/digimons"}>

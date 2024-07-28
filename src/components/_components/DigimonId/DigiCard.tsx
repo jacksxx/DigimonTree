@@ -1,14 +1,13 @@
 import React from "react";
 import Image from "next/image";
-import { Digimon } from "@/types/Digimon";
 import { useDigimon } from "@/hooks/useDigimon";
 import FieldSets from "./FieldSets";
 import * as S from "./styles";
+import { DigiAll } from "@/types/DigiAll";
 
-const DigiCard = ({ digimons }: { digimons: Digimon }) => {
-  const { name, srcimg, level, attribute, type, field, fieldimg } =
+const DigiCard = ({ digimons }: { digimons: DigiAll }) => {
+  const { name, srcimg, level, attribute, type, field, fieldimg} =
     useDigimon(digimons);
-
   return (
     <S.Container key={digimons.id}>
       <S.Id>{digimons.id}</S.Id>

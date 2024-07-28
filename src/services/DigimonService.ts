@@ -1,5 +1,4 @@
-import { AllDigimon } from "@/types/AllDigimon";
-import { Digimon } from "@/types/Digimon";
+import { DigiAll } from "@/types/DigiAll";
 
 import axios from "axios";
 
@@ -7,9 +6,9 @@ const API_BASE = "https://digi-api.com/api/v1/digimon";
 
 export const getAllDigimons = async (
   perPage: number = 20
-): Promise<AllDigimon[]> => {
+): Promise<DigiAll[]> => {
   try {
-    let allDigimons: AllDigimon[] = [];
+    let allDigimons: DigiAll[] = [];
     let currentPage = 0;
     let totalPages = 1;
 
@@ -29,7 +28,7 @@ export const getAllDigimons = async (
   }
 };
 
-export const getDigimonById = async (id: number): Promise<Digimon> => {
+export const getDigimonById = async (id: number): Promise<DigiAll> => {
   try {
     const res = await axios.get(`${API_BASE}/${id}`);
     return res.data;

@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
   gap: 2.25rem;
   justify-content: center;
   align-items: center;
-  background-color: rgb(241 245 249 / 0.7);
+  background-color: rgb(241 245 249 / 0.8);
 `;
 export const Header = styled.h1`
   font-size: 32px;
@@ -37,8 +37,9 @@ export const Start = styled.div`
   padding: 0.5rem;
   margin-bottom: 0.5rem;
   background-image: radial-gradient(ellipse, #dc2626, #d1d5db);
-  border: 2px solid #dc2626;  
+  border: 2px solid #dc2626;
   animation: pulse 2s infinite;
+  transition: all 1000ms ease-in-out 100ms;
   &:hover {
     transform: scale(1.05);
     background-image: radial-gradient(ellipse, #dc2626, black);
@@ -47,7 +48,6 @@ export const Start = styled.div`
     color: #f59e0b;
     opacity: 0.8;
     animation: none;
-    transition: all 1000ms ease-in-out 100ms;
   }
   @keyframes pulse {
     0% {

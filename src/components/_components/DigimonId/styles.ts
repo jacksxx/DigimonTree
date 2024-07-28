@@ -10,7 +10,7 @@ export const Container = styled.div`
   background-color: white;
   transition: transform 0.5s ease-in-out;
   &:hover {
-    transform: scale(1.05);
+    transform: scale(0.9);
   }
   max-width: 750px;
   display: flex;
@@ -18,7 +18,7 @@ export const Container = styled.div`
   min-width: 300px;
   padding-top: 0.5rem;
   padding-bottom: 1.25rem;
-  row-gap: 1.25rem;  
+  row-gap: 1.25rem;
   background: linear-gradient(
     -72deg,
     #ffde45,
@@ -51,7 +51,7 @@ export const ImageWrapper = styled.div`
   border-color: black;
   border-radius: 0.125rem;
   background: white;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.7s ease-in-out;
   &:hover {
     transform: scaleX(-1);
   }
@@ -71,7 +71,7 @@ export const Name = styled.h1`
   font-size: 26px;
   font-weight: 700;
   text-decoration-line: underline;
-  text-underline-offset: 2px;  
+  text-underline-offset: 2px;
 `;
 export const InfoWrapper = styled.div`
   display: grid;
@@ -94,8 +94,8 @@ export const FieldSets = styled.div`
   flex-direction: row;
   justify-content: center;
   justify-itens: center;
-  gap: 1.5rem;  
+  gap: 1.5rem;
   @media (min-width: 640px) {
     gap: 2.5rem;
-  }  
+  }
 `;

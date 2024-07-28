@@ -1,6 +1,8 @@
-export type Digimon = {
+export type DigiAll = {
   id: number;
-  name: string;  
+  name: string;
+  image: string;
+  href: string;
   xAntibody: boolean;
   levels: Level[];
   images: Image[];
@@ -9,6 +11,14 @@ export type Digimon = {
   fields: Field[];
   priorEvolutions: Evolution[];
   nextEvolutions: Evolution[];
+  descriptions: Descriptions[];
+  currentPage: number;
+  elementsOnPage: number;
+  totalElements: number;
+  totalPages: number;
+  previousPage: number;
+  nextPage: number;
+  skills: Skills[];
 };
 
 export type Level = {
@@ -43,4 +53,15 @@ export type Evolution = {
   condition: string;
   image: string;
   url: string;
+};
+export type Descriptions = {
+  origin: string;
+  language: string;
+  description: string;
+};
+export type Skills = {
+  id: string;
+  skill: string;
+  translation: string;
+  description: string;
 };

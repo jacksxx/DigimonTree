@@ -8,18 +8,22 @@ export const Container = styled.div<{ evo: boolean }>`
   padding: 0.5rem 0rem;
   border-radius: 0.5rem;
   border: 2px solid black;
-  box-shadow: 0 3px 8px black;
+  box-shadow: 0 5px 10px black;
   ${({ evo }) =>
     evo == true
       ? `background: rgba(234 179 8/0.9);`
       : `background: rgba( 148 163 184/0.9); `}
+  transition: all 0.5s ease-in-out;
+  &:hover {
+    transform: scale(0.9);
+  }
 `;
 export const ImageWrapper = styled.div`
   overflow: hidden;
   border-bottom: 1px solid black;
   border-top: 1px solid black;
   border-radius: 0.125rem;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.7s ease-in-out;
   &:hover {
     transform: scaleX(-1);
   }
@@ -61,12 +65,13 @@ export const ListUl = styled.ul`
   }
   @media (min-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);
-  }
+  }  
+  border-radius: 0.5rem
 `;
-
 //styles of Evolutions
 export const EvoContainer = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
@@ -96,6 +101,10 @@ export const RButton = styled.button`
   border-radius: 9999px;
 `;
 export const Condition = styled.p<{ ev: boolean }>`
+  border-radius: 99px;
+  background-color: black;
+  color: white;
+  white-space: nowrap;
   font-size: 12px;
   @media (min-width: 640px) {
     font-size: 14px;
@@ -105,6 +114,6 @@ export const Condition = styled.p<{ ev: boolean }>`
   }
   ${({ ev }) =>
     ev
-      ? "padding: 0.25rem; font-weight: 500;"
+      ? "padding: 0.25rem; font-weight: 500; position: absolute; bottom: -30px; "
       : "height: 0; visibility: hidden; opacity: 0;"}
 `;
