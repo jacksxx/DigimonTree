@@ -8,19 +8,22 @@ export const getAllDigimons = async (
   perPage: number = 20
 ): Promise<DigiAll[]> => {
   try {
-    let allDigimons: DigiAll[] = [];
-    let currentPage = 0;
-    let totalPages = 1;
+    // Primeira chamada para obter a quantidade total de páginas
+    const initialRes = await axios.get(`${API_BASE}?page=0&size=${perPage}`);
+    const initialData = initialRes.data;
+    const totalPages = initialData.pageable.totalPages;
 
-    while (currentPage < totalPages) {
-      const res = await axios.get(
-        `${API_BASE}?page=${currentPage}&size=${perPage}`
-      );
-      const data = res.data;
-      allDigimons = allDigimons.concat(data.content);
-      currentPage = data.pageable.currentPage + 1;
-      totalPages = data.pageable.totalPages;
+    // Cria uma array de Promises para todas as páginas
+    const requests = [];
+    for (let i = 0; i < totalPages; i++) {
+      requests.push(axios.get(`${API_BASE}?page=${i}&size=${perPage}`));
     }
+
+    // Executa todas as requisições em paralelo
+    const responses = await Promise.all(requests);
+
+    // Extrai e concatena os dados de todas as respostas
+    const allDigimons = responses.flatMap((res) => res.data.content);
 
     return allDigimons;
   } catch (error) {
