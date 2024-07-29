@@ -19,18 +19,20 @@ const EvoList = ({ evo, evolutions, show }: EvoListProps) => {
           {evolutions && evolutions.length > 0 ? (
             <S.ListUl>
               {evolutions.map((evoItem: Evolution) => (
-                <EvoCard
-                  key={evoItem.id}
-                  evo={evo}
-                  evolutions={evoItem}
-                  extra={
-                    <Evolutions
-                      evolutions={evoItem}
-                      nextEve={evo}
-                      key={evoItem.id}
-                    />
-                  }
-                />
+                <li key={evoItem.id}>
+                  <EvoCard
+                    key={evoItem.id}
+                    evo={evo}
+                    evolutions={evoItem}
+                    extra={
+                      <Evolutions
+                        evolutions={evoItem}
+                        nextEve={evo}
+                        key={evoItem.id}
+                      />
+                    }
+                  />
+                </li>
               ))}
             </S.ListUl>
           ) : (

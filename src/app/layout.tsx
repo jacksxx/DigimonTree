@@ -1,7 +1,13 @@
+'use client';
 import "./globals.css";
-import MComp from "../components/MainComponent/MComp";
+import Navbar from "../components/NavBar/Navbar";
+import Footer from "../components/Footer/Footer";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@/libs/queryClient";
+import { Inter } from "next/font/google";
+import * as S from "./styles";
 import StyledComponentsRegistry from "../libs/Registy";
-
+const inter = Inter({ subsets: ["latin"] });
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -16,9 +22,13 @@ export default function RootLayout({
           content="Search for your favorite digimon here!"
         />
       </head>
-      <body>
+      <body className={inter.className}>
         <StyledComponentsRegistry>
-          <MComp>{children}</MComp>
+          <Navbar />
+          <QueryClientProvider client={queryClient}>
+            <S.Container>{children}</S.Container>
+          </QueryClientProvider>
+          <Footer />
         </StyledComponentsRegistry>
       </body>
     </html>

@@ -12,10 +12,17 @@ const FieldSets = (f: fieldsets) => {
       <Image
         alt={f.field.join("")}
         src={f.fimg}
-        width={50}
-        height={50}
-        priority
+        width={35}
+        height={35}
         title={f.field.join(" ")}
+        quality={100}
+        priority
+        style={{
+          minHeight: "10%",
+          width: "10%",
+        }}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className="shadow-md shadow-black"
       />
     </>
   );

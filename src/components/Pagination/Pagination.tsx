@@ -48,7 +48,7 @@ const Pagination = ({
     <S.Container>
       <S.Wrapper>
         <S.PrevButton
-          disabled={initialPage === 1}
+          disabled={initialPage <= 1}
           onClick={handlePrevClick}
           initialPage={initialPage}
         >
@@ -66,7 +66,7 @@ const Pagination = ({
           <S.TotalPages>{`/ ${totalPages}`}</S.TotalPages>
         </S.FormContainer>
         <S.NextButton
-          disabled={initialPage === totalPages}
+          disabled={initialPage >= totalPages}
           onClick={handleNextClick}
           initialPage={initialPage}
           totalPages={totalPages}

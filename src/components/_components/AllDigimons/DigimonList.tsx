@@ -8,13 +8,14 @@ const DigimonList = ({ digimon }: { digimon: DigiAll[] }) => {
   return (
     <S.ListaUl>
       {digimon.map((digimons: DigiAll) => (
-        <Link
+        <li
           key={digimons.id}
-          href={`/digimons/${digimons.id}`}
           className="hover:scale-90 m-1 transition duration-700"
         >
-          <Card h={350} w={350} digimons={digimons} key={digimons.id} />
-        </Link>
+          <Link key={digimons.id} href={`/digimons/${digimons.id}`}>
+            <Card digimons={digimons} key={digimons.id} />
+          </Link>
+        </li>
       ))}
     </S.ListaUl>
   );

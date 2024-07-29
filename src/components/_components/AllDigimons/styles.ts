@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const ListaUl = styled.ul`
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: 1rem;  
+  gap: 1rem;
   @media (min-width: 640px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -22,7 +22,7 @@ export const ListaUl = styled.ul`
   }
 `;
 //styles of Card
-export const CardContainer = styled.div`  
+export const CardContainer = styled.div`
   border-radius: 0.5rem;
   border-width: 1px;
   border-color: black;

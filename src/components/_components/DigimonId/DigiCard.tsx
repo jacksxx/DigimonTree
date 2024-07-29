@@ -6,7 +6,7 @@ import * as S from "./styles";
 import { DigiAll } from "@/types/DigiAll";
 
 const DigiCard = ({ digimons }: { digimons: DigiAll }) => {
-  const { name, srcimg, level, attribute, type, field, fieldimg} =
+  const { name, srcimg, level, attribute, type, field, fieldimg } =
     useDigimon(digimons);
   return (
     <S.Container key={digimons.id}>
@@ -17,8 +17,15 @@ const DigiCard = ({ digimons }: { digimons: DigiAll }) => {
           src={srcimg}
           width={450}
           height={450}
+          quality={100}
           priority
-          className="h-full w-full px-[80px]"
+          style={{
+            minHeight: "100%",
+            width: "100%",
+            paddingLeft: "80px",
+            paddingRight: "80px",
+          }}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </S.ImageWrapper>
       <S.InfoContaniner>

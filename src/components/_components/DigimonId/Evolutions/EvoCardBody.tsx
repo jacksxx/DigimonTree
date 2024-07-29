@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import Image from "next/image";
 import { Evolution } from "@/types/DigiAll";
 import * as S from "./styles";
@@ -13,6 +13,19 @@ type CardProps = {
 
 const EvoCardBody = ({ extra, evolutions, evo }: CardProps) => {
   const { name } = useEvolution(evolutions);
+  const [minHeight, setMinHeight] = useState("100px");
+  useEffect(() => {
+    const updateMinHeight = () => {
+      if (window.innerWidth >= 768) {
+        setMinHeight("200px");
+      } else {
+        setMinHeight("100px");
+      }
+    };
+    updateMinHeight();
+    window.addEventListener("resize", updateMinHeight);
+    return () => window.removeEventListener("resize", updateMinHeight);
+  }, []);
   return (
     <S.Container evo={evo}>
       <Link key={evolutions.id} href={`/digimons/${evolutions.id}`}>
@@ -22,9 +35,14 @@ const EvoCardBody = ({ extra, evolutions, evo }: CardProps) => {
             alt={evolutions.digimon}
             src={evolutions.image}
             width={150}
-            height={150}
+            height={100}
+            quality={100}
             priority
-            className={`sm:min-h-[150px] md:min-h-[200px] w-full block rounded-md`}
+            style={{
+              minHeight: minHeight,
+              width: "100%",
+            }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </S.ImageWrapper>
         <S.InfoWrapper>

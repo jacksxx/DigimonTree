@@ -61,7 +61,7 @@ export const NextButton = styled.button<{
   color: #fff;
   border-radius: 9999px;
   ${({ initialPage, totalPages }) =>
-    initialPage === totalPages
+    initialPage >= totalPages 
       ? `
             background-color: #4B5563;
             color: rgba(255, 255, 255, 0.5);
@@ -81,7 +81,7 @@ export const PrevButton = styled.button<{
   color: #fff;
   border-radius: 9999px;
   ${({ initialPage }) =>
-    initialPage === 1
+    initialPage <= 1
       ? `
               background-color: #4B5563;
               color: rgba(255, 255, 255, 0.5);

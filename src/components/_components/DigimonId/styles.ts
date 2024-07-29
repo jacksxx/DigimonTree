@@ -97,5 +97,5 @@ export const FieldSets = styled.div`
   gap: 1.5rem;
   @media (min-width: 640px) {
     gap: 2.5rem;
-  }
+  }  
 `;
