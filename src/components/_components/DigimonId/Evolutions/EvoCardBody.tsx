@@ -16,7 +16,11 @@ const EvoCardBody = ({ extra, evolutions, evo }: CardProps) => {
   const [minHeight, setMinHeight] = useState("100px");
   useEffect(() => {
     const updateMinHeight = () => {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 1580) {
+        setMinHeight("350px");
+      } else if (window.innerWidth >= 1280) {
+        setMinHeight("300px");
+      } else if (window.innerWidth >= 768) {
         setMinHeight("200px");
       } else {
         setMinHeight("100px");
@@ -34,7 +38,7 @@ const EvoCardBody = ({ extra, evolutions, evo }: CardProps) => {
             key={evolutions.id}
             alt={evolutions.digimon}
             src={evolutions.image}
-            width={150}
+            width={200}
             height={100}
             quality={100}
             priority
