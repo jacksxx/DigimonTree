@@ -20,7 +20,13 @@ const EvolutionsBody = ({ evolutions, ev, setEv }: EvoProps) => {
           <FaChevronCircleDown />
         </S.RButton>
       )}
-      {ev ? <S.Condition ev={ev}>*{evolutions.condition}*</S.Condition> : ""}
+      {ev ? (
+        <S.Condition ev={ev} cond={evolutions.condition}>
+          *{evolutions.condition}*
+        </S.Condition>
+      ) : (
+        ""
+      )}
     </S.EvoContainer>
   );
 };

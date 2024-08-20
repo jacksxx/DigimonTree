@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 //styles of EvoCardBody
 export const Container = styled.div<{ evo: boolean }>`
@@ -65,8 +65,8 @@ export const ListUl = styled.ul`
   }
   @media (min-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);
-  }  
-  border-radius: 0.5rem
+  }
+  border-radius: 0.5rem;
 `;
 //styles of Evolutions
 export const EvoContainer = styled.div`
@@ -100,20 +100,18 @@ export const RButton = styled.button`
   background-color: rgba(239 68 68);
   border-radius: 9999px;
 `;
-export const Condition = styled.p<{ ev: boolean }>`
+export const Condition = styled.p<{ ev: boolean; cond: string }>`
   border-radius: 99px;
   background-color: black;
   color: white;
   white-space: nowrap;
-  font-size: 12px;
+  ${({ cond }) =>
+    cond.length >= 40 ? "font-size: 8.25px;" : "font-size: 12px;"}
   @media (min-width: 640px) {
-    font-size: 14px;
-  }
-  @media (min-width: 768px) {
-    font-size: 14px;
+    font-size: 12px;
   }
   ${({ ev }) =>
     ev
-      ? "padding: 0.25rem; font-weight: 500; position: absolute; bottom: -30px; "
+      ? "padding: 0.25rem; font-weight: 500; position: absolute; bottom: -30px; z: 20; "
       : "height: 0; visibility: hidden; opacity: 0;"}
 `;
