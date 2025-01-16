@@ -1,10 +1,6 @@
 "use client";
-import About from "@/components/_components/About/About";
+import About from "@/components/pages/About/About";
 
 export default function Home() {
-  return (
-    <>
-      <About />
-    </>
-  );
+  return <About />;
 }

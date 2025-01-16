@@ -1,78 +1,76 @@
-import React, { useEffect } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+"use client";
+import type React from "react";
+import { useForm } from "react-hook-form";
 import * as S from "./styles";
 
 interface PaginationProps {
-  currentPage: number;
+  pagination: { page: number; pageSize: number };
+  setPagination: React.Dispatch<
+    React.SetStateAction<{ page: number; pageSize: number }>
+  >;
   totalPages: number;
-  onPageChange: (pageNumber: number) => void;
 }
 
 const Pagination = ({
-  currentPage: initialPage,
+  pagination,
+  setPagination,
   totalPages,
-  onPageChange,
 }: PaginationProps) => {
-  const { handleSubmit, register, setValue } = useForm<{
+  const { register, handleSubmit } = useForm<{
     currentPage: number;
-  }>();
-  const onSubmit: SubmitHandler<{ currentPage: number }> = (data, event) => {
-    event?.preventDefault();
+  }>({
+    defaultValues: {
+      currentPage: pagination.page + 1,
+    },
+  });
+
+  const handlePageChange = (pageNumber: number) => {
+    const clampedPage = Math.max(1, Math.min(pageNumber, totalPages));
+    setPagination((prev) => ({ ...prev, page: clampedPage - 1 }));
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  setValue("currentPage", initialPage);
-  //Input Change Handle of Current Page
-  const handleIChange = (event: any) => {
-    onPageChange(event.target.value);
-  };
-  //Previous Button Handle
   const handlePrevClick = () => {
-    setValue("currentPage", initialPage--);
-    onPageChange(initialPage--);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    handlePageChange(pagination.page);
   };
-  //Next Button Handle
+
   const handleNextClick = () => {
-    setValue("currentPage", initialPage++);
-    onPageChange(initialPage++);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    handlePageChange(pagination.page + 2);
   };
-  useEffect(() => {
-    if (initialPage <= 1) {
-      onPageChange(1);
-    } else if (initialPage > totalPages) {
-      onPageChange(totalPages);
-    }
-  }, [initialPage, totalPages, onPageChange]);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const pageNumber = Number(event.target.value);
+    handlePageChange(pageNumber);
+  };
+
   return (
     <S.Container>
       <S.Wrapper>
-        <S.PrevButton
-          disabled={initialPage <= 1}
-          onClick={handlePrevClick}
-          initialPage={initialPage}
-        >
+        <S.Button disabled={pagination.page === 0} onClick={handlePrevClick}>
           Anterior
-        </S.PrevButton>
+        </S.Button>
         <S.FormContainer>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            onSubmit={handleSubmit((data) =>
+              handlePageChange(data.currentPage)
+            )}
+          >
             <S.InputPage
-              type="text"
-              value={initialPage}
+              min={1}
+              max={totalPages}
+              value={pagination.page + 1}
               {...register("currentPage")}
-              onChange={handleIChange}
+              onChange={handleInputChange}
             />
           </form>
           <S.TotalPages>{`/ ${totalPages}`}</S.TotalPages>
         </S.FormContainer>
-        <S.NextButton
-          disabled={initialPage >= totalPages}
+        <S.Button
+          disabled={pagination.page + 1 >= totalPages}
           onClick={handleNextClick}
-          initialPage={initialPage}
-          totalPages={totalPages}
         >
           Próxima
-        </S.NextButton>
+        </S.Button>
       </S.Wrapper>
     </S.Container>
   );
