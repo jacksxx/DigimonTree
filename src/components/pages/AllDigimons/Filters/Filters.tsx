@@ -23,12 +23,16 @@ interface FiltersProps {
     title: string;
     options: { label: string; value: string }[];
   }[];
+  setPagination: React.Dispatch<
+    React.SetStateAction<{ page: number; pageSize: number }>
+  >;
 }
 const Filters = ({
   filters,
   search,
   setFilters,
   filterOptions,
+  setPagination,
 }: FiltersProps) => {
   const [inputValue, setInputValue] = useState<string>(search.digimonName);
   const [isFiltered, setIsFiltered] = useState<boolean>(false);
@@ -45,6 +49,7 @@ const Filters = ({
 
   const handleSeachName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
+    setPagination((prev) => ({ ...prev, page: 0 }));
     if (
       filters.attribute === "" &&
       filters.level === "" &&
@@ -65,6 +70,7 @@ const Filters = ({
     setInputValue("");
     search.setDigimonName("");
     setIsFiltered(false);
+    setPagination((prev) => ({ ...prev, page: 0 }));
   };
   return (
     <S.WrapperSearch>
@@ -113,7 +119,11 @@ const Filters = ({
               ...prev,
               xAntibody: e.target.checked,
             }));
-            if (filters.level === "" && filters.attribute === "") {
+            if (
+              filters.level === "" &&
+              filters.attribute === "" &&
+              inputValue === ""
+            ) {
               setIsFiltered((prevState) => !prevState);
             } else setIsFiltered(true);
           }}

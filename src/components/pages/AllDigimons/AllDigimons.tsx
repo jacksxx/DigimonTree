@@ -22,7 +22,7 @@ const AllDigimons = () => {
     level: string;
     xAntibody: boolean;
   }>({ attribute: "", level: "", xAntibody: false });
-  
+
   const { digimons, isError, isLoading, pageable } = useGetAllDigimons({
     page: pagination.page,
     pageSize: pagination.pageSize,
@@ -35,7 +35,7 @@ const AllDigimons = () => {
   const { attributes } = useGetAllAttributes();
 
   const filterOptions: {
-    key: keyof Omit<typeof filters, "xAntibody">; // Exclui 'xAntibody'
+    key: keyof Omit<typeof filters, "xAntibody">;
     title: string;
     options: { label: string; value: string }[];
   }[] = [
@@ -65,6 +65,7 @@ const AllDigimons = () => {
           filters={filters}
           search={{ digimonName, setDigimonName }}
           setFilters={setFilters}
+          setPagination={SetPagination}
         />
       </S.ContainerSearch>
       {digimons ? <DigimonList digimons={digimons} /> : <NoDataMessage />}

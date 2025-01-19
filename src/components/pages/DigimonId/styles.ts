@@ -54,6 +54,7 @@ export const xAntibody = styled.h5`
   font-size: 14px;
   font-weight: ${fonts.extrabold};
   font-style: italic;
+  cursor: default;
   background: linear-gradient(45deg, silver, purple);
   color: white;
   border-radius: 0 5px 0 9px;

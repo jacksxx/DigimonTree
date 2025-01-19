@@ -24,7 +24,7 @@ export const ImageWrapper = styled.div`
   border-top: 1px solid black;
   border-radius: 0.125rem;
   width: 100%;
-  min-width: 150px;
+  min-width: 165px;
   height: 150px;
   position: relative;
   transition: all 0.7s ease-in-out;
@@ -33,12 +33,14 @@ export const ImageWrapper = styled.div`
   }
   @media (min-width: 640px) {
     height: 200px;
+    min-width: 235px;
   }
-  @media (min-width: 840px) {
-    height: 250px;
-    min-width: 200px;
+  @media (min-width: 1020px) {
+    height: 230px;
+    min-width: 210px;
   }
   @media (min-width: 1720px) {
+    height: 250px;
     min-width: 250px;
   }
 `;

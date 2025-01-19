@@ -12,7 +12,7 @@ type CardProps = {
 const EvoCard = ({ isNextEvolution, evolutions }: CardProps) => {
   return (
     <S.Container $isNextEvolution={isNextEvolution}>
-      <Link key={evolutions.id} href={`/digimons/${evolutions.id}`}>
+      <Link key={evolutions.id} href={`/digimons/${evolutions.digimon}`}>
         <S.ImageWrapper>
           <Image
             key={evolutions.id}
