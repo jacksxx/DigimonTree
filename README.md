@@ -18,10 +18,10 @@
 
 ## Tecnologias utilizadas
 - HTML / CSS
-- TypeScript / JavaScript
-- React.js
+- TypeScript
 - Next.js
-
+- Tanstack Query
+- Axios
 
 # Como executar o projeto
 
