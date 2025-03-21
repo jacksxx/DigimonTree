@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import FieldSets from "./FieldSets";
 import * as S from "./styles";

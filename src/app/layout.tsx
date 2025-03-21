@@ -1,14 +1,15 @@
-"use client";
 import "./globals.css";
+import * as S from "./styles";
+import type { Metadata } from "next";
 import Navbar from "../components/layout/NavBar/Navbar";
 import Footer from "../components/layout/Footer/Footer";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "@/libs/queryClient";
-import { Inter } from "next/font/google";
-import * as S from "./styles";
+import { QueryProvider } from "@/hooks/Provider";
 import StyledComponentsRegistry from "../libs/Registy";
 
-const inter = Inter({ subsets: ["latin"] });
+export const metadata: Metadata = {
+  title: "Digimon Tree",
+  description: "Search for your favorite digimon here!",
+};
 
 export default function RootLayout({
   children,
@@ -16,20 +17,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
-      <head>
-        <title>Digimon Tree</title>
-        <meta
-          name="description"
-          content="Search for your favorite digimon here!"
-        />
-      </head>
-      <body className={inter.className}>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <head />
+      <body>
         <StyledComponentsRegistry>
           <Navbar />
-          <QueryClientProvider client={queryClient}>
+          <QueryProvider>
             <S.Container>{children}</S.Container>
-          </QueryClientProvider>
+          </QueryProvider>
           <Footer />
         </StyledComponentsRegistry>
       </body>

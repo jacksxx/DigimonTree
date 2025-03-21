@@ -1,4 +1,3 @@
-"use client";
 import Digimon from "@/components/pages/DigimonId/Digimon";
 
 const page = () => {

@@ -1,13 +1,12 @@
-"use client";
 import type React from "react";
-import { useForm } from "react-hook-form";
 import * as S from "./styles";
+import { useState, type Dispatch, type SetStateAction } from "react";
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface PaginationProps {
   pagination: { page: number; pageSize: number };
-  setPagination: React.Dispatch<
-    React.SetStateAction<{ page: number; pageSize: number }>
-  >;
+  setPagination: Dispatch<SetStateAction<{ page: number; pageSize: number }>>;
   totalPages: number;
 }
 
@@ -16,11 +15,15 @@ const Pagination = ({
   setPagination,
   totalPages,
 }: PaginationProps) => {
-  const { register, handleSubmit } = useForm<{
-    currentPage: number;
-  }>({
-    defaultValues: {
-      currentPage: pagination.page + 1,
+  const [inputValue, setInputValue] = useState<string>("");
+  useDebounce({
+    value: inputValue,
+    callback: (debounceValue) => {
+      if (debounceValue && !Number.isNaN(Number(debounceValue))) {
+        const pageNumber = Number(debounceValue);
+        const clampedPage = Math.max(1, Math.min(pageNumber, totalPages));
+        setPagination((prev) => ({ ...prev, page: clampedPage - 1 }));
+      }
     },
   });
 
@@ -39,37 +42,31 @@ const Pagination = ({
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const pageNumber = Number(event.target.value);
-    handlePageChange(pageNumber);
+    const value = event.target.value;
+    setInputValue(value);
   };
 
   return (
     <S.Container>
       <S.Wrapper>
         <S.Button disabled={pagination.page === 0} onClick={handlePrevClick}>
-          Anterior
+          <FaArrowAltCircleLeft />
         </S.Button>
         <S.FormContainer>
-          <form
-            onSubmit={handleSubmit((data) =>
-              handlePageChange(data.currentPage)
-            )}
-          >
-            <S.InputPage
-              min={1}
-              max={totalPages}
-              value={pagination.page + 1}
-              {...register("currentPage")}
-              onChange={handleInputChange}
-            />
-          </form>
+          <S.InputPage
+            type="tel"
+            min={1}
+            max={totalPages}
+            value={inputValue || (pagination.page + 1).toString()}
+            onChange={handleInputChange}
+          />
           <S.TotalPages>{`/ ${totalPages}`}</S.TotalPages>
         </S.FormContainer>
         <S.Button
           disabled={pagination.page + 1 >= totalPages}
           onClick={handleNextClick}
         >
-          Próxima
+          <FaArrowAltCircleRight />
         </S.Button>
       </S.Wrapper>
     </S.Container>

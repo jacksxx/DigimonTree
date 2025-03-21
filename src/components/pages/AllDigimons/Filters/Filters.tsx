@@ -1,6 +1,5 @@
-"use client";
 import type React from "react";
-import { useState } from "react";
+import { type Dispatch, type SetStateAction, useState } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 import * as S from "./styles";
 
@@ -11,8 +10,8 @@ interface FiltersProps {
     level: string;
     xAntibody: boolean;
   };
-  setFilters: React.Dispatch<
-    React.SetStateAction<{
+  setFilters: Dispatch<
+    SetStateAction<{
       attribute: string;
       level: string;
       xAntibody: boolean;
@@ -23,9 +22,7 @@ interface FiltersProps {
     title: string;
     options: { label: string; value: string }[];
   }[];
-  setPagination: React.Dispatch<
-    React.SetStateAction<{ page: number; pageSize: number }>
-  >;
+  setPagination: Dispatch<SetStateAction<{ page: number; pageSize: number }>>;
 }
 const Filters = ({
   filters,

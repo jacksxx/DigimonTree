@@ -29,7 +29,7 @@ function constructURL(params: Params) {
   return url.toString();
 }
 
-async function getDigimons(params: Params): Promise<DigimonPages> {
+export async function getDigimons(params: Params): Promise<DigimonPages> {
   try {
     const url = constructURL(params);
     const response = await api.get<DigimonPages>(`${apiRotas.digimons}?${url}`);

@@ -2,9 +2,7 @@ import Image from "next/image";
 import type { DigiField } from "@/types/Digimon";
 import * as S from "./styles";
 import { useState } from "react";
-
-const FieldSets = ({ field }: { field: DigiField }) => {
-  const fieldColors = [
+const fieldColors = [
     { field: "Metal Empire", color: "#645A5D" },
     { field: "Virus Busters", color: "#E9DFD5" },
     { field: "Nature Spirits", color: "#3F8255" },
@@ -15,6 +13,8 @@ const FieldSets = ({ field }: { field: DigiField }) => {
     { field: "Unknown", color: "#000" },
     { field: "Dark Area", color: "#000" },
   ];
+const FieldSets = ({ field }: { field: DigiField }) => {
+  
   const fieldColor =
     fieldColors.find((fc) => fc.field === field.field)?.color || "#fff";
   const [show, setShow] = useState<boolean>(false);
