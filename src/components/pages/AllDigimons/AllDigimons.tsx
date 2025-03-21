@@ -10,19 +10,15 @@ import { UseAllDigimons } from "@/hooks/useAllDigimons";
 
 const AllDigimons = () => {
   const {
-    SetPagination,
-    digimonName,
     digimons,
     filterOptions,
-    filters,
     isError,
     isLoading,
     pageable,
-    pagination,
-    setDigimonName,
-    setFilters,
+    states,
+    dispatch,
   } = UseAllDigimons();
-  
+
   if (isLoading) {
     return <Loading message="Carregando digimons" />;
   }
@@ -34,16 +30,21 @@ const AllDigimons = () => {
       <S.ContainerSearch>
         <Filters
           filterOptions={filterOptions}
-          filters={filters}
-          search={{ digimonName, setDigimonName }}
-          setFilters={setFilters}
-          setPagination={SetPagination}
+          filters={states.filters}
+          setFilters={(filters) =>
+            dispatch({ type: "SET_FILTERS", payload: filters })
+          }
+          setPagination={(pagination) =>
+            dispatch({ type: "SET_PAGINATION", payload: pagination })
+          }
         />
       </S.ContainerSearch>
       {digimons ? <DigimonList digimons={digimons} /> : <NoDataMessage />}
       <Pagination
-        pagination={pagination}
-        setPagination={SetPagination}
+        pagination={states.pagination}
+        setPagination={(pagination) =>
+          dispatch({ type: "SET_PAGINATION", payload: pagination })
+        }
         totalPages={
           pageable.totalPages > 1
             ? pageable.totalPages + 1

@@ -82,6 +82,7 @@ export const CheckedInput = styled.input`
   width: 1.5rem;
   height: 1.5rem;
   box-shadow: 0 0 0 1px ${colors.input};
+  cursor: pointer;
   &:focus {
     box-shadow: 0 0 0 1px ${colors.input_lighter};
   }
@@ -92,6 +93,7 @@ export const Select = styled.select`
   padding: 0.15rem;
   background: ${colors.foreground};
   color: ${colors.input};
+  cursor: pointer;
   &:focus {
     outline: none;
     box-shadow: 0 0 0 1px ${colors.input_lighter};

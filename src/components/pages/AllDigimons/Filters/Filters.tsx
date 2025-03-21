@@ -4,14 +4,15 @@ import { useDebounce } from "@/hooks/useDebounce";
 import * as S from "./styles";
 
 interface FiltersProps {
-  search: { digimonName: string; setDigimonName: (name: string) => void };
   filters: {
+    digimonName: string;
     attribute: string;
     level: string;
     xAntibody: boolean;
   };
   setFilters: Dispatch<
     SetStateAction<{
+      digimonName: string;
       attribute: string;
       level: string;
       xAntibody: boolean;
@@ -26,26 +27,27 @@ interface FiltersProps {
 }
 const Filters = ({
   filters,
-  search,
   setFilters,
   filterOptions,
   setPagination,
 }: FiltersProps) => {
-  const [inputValue, setInputValue] = useState<string>(search.digimonName);
+  const [inputValue, setInputValue] = useState<string>(filters.digimonName);
   const [isFiltered, setIsFiltered] = useState<boolean>(false);
   useDebounce({
     value: inputValue,
     callback: (debouncedValue) => {
-      if (debouncedValue.trim() === "") {
-        search.setDigimonName("");
-      } else {
-        search.setDigimonName(debouncedValue);
+      if (debouncedValue.trim() !== filters.digimonName) {
+        setFilters((prev) => ({
+          ...prev,
+          digimonName: debouncedValue.trim() || "",
+        }));
       }
     },
   });
 
   const handleSeachName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+    const name = event.target.value;
+    setInputValue(name);
     setPagination((prev) => ({ ...prev, page: 0 }));
     if (
       filters.attribute === "" &&
@@ -60,12 +62,12 @@ const Filters = ({
   };
   const handleResetFilters = () => {
     setFilters({
+      digimonName: "",
       attribute: "",
       level: "",
       xAntibody: false,
     });
     setInputValue("");
-    search.setDigimonName("");
     setIsFiltered(false);
     setPagination((prev) => ({ ...prev, page: 0 }));
   };
@@ -86,14 +88,28 @@ const Filters = ({
             name={filter.key}
             id={filter.key}
             value={
-              filters[filter.key as keyof Omit<typeof filters, "xAntibody">] ||
-              ""
+              filters[
+                filter.key as keyof Omit<
+                  typeof filters,
+                  "xAntibody" | "digimonName"
+                >
+              ] || ""
             }
             onChange={(e) => {
-              setFilters((prev) => ({
-                ...prev,
-                [filter.key]: e.target.value,
-              }));
+              const newValue = e.target.value;
+              if (
+                filters[
+                  filter.key as keyof Omit<
+                    typeof filters,
+                    "xAntibody" | "digimonName"
+                  >
+                ] !== newValue
+              ) {
+                setFilters((prev) => ({
+                  ...prev,
+                  [filter.key]: newValue,
+                }));
+              }
               setIsFiltered(true);
             }}
           >
@@ -112,10 +128,13 @@ const Filters = ({
           type="checkbox"
           checked={filters.xAntibody}
           onChange={(e) => {
-            setFilters((prev) => ({
-              ...prev,
-              xAntibody: e.target.checked,
-            }));
+            const checked = e.target.checked;
+            if (filters.xAntibody !== checked) {
+              setFilters((prev) => ({
+                ...prev,
+                xAntibody: checked,
+              }));
+            }
             if (
               filters.level === "" &&
               filters.attribute === "" &&
