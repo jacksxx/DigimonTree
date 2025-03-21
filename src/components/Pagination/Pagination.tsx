@@ -21,24 +21,24 @@ const Pagination = ({
     callback: (debounceValue) => {
       if (debounceValue && !Number.isNaN(Number(debounceValue))) {
         const pageNumber = Number(debounceValue);
-        const clampedPage = Math.max(1, Math.min(pageNumber, totalPages));
-        setPagination((prev) => ({ ...prev, page: clampedPage - 1 }));
+        const clampedPage = Math.max(0, Math.min(pageNumber, totalPages));
+        setPagination((prev) => ({ ...prev, page: clampedPage }));
       }
     },
   });
 
   const handlePageChange = (pageNumber: number) => {
-    const clampedPage = Math.max(1, Math.min(pageNumber, totalPages));
-    setPagination((prev) => ({ ...prev, page: clampedPage - 1 }));
+    const clampedPage = Math.max(0, Math.min(pageNumber, totalPages));
+    setPagination((prev) => ({ ...prev, page: clampedPage }));
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handlePrevClick = () => {
-    handlePageChange(pagination.page);
+    handlePageChange(pagination.page - 1);
   };
 
   const handleNextClick = () => {
-    handlePageChange(pagination.page + 2);
+    handlePageChange(pagination.page + 1);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,13 +57,13 @@ const Pagination = ({
             type="tel"
             min={1}
             max={totalPages}
-            value={inputValue || (pagination.page + 1).toString()}
+            value={inputValue || pagination.page.toString()}
             onChange={handleInputChange}
           />
           <S.TotalPages>{`/ ${totalPages}`}</S.TotalPages>
         </S.FormContainer>
         <S.Button
-          disabled={pagination.page + 1 >= totalPages}
+          disabled={pagination.page >= totalPages}
           onClick={handleNextClick}
         >
           <FaArrowAltCircleRight />

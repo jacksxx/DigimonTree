@@ -45,11 +45,7 @@ const AllDigimons = () => {
         setPagination={(pagination) =>
           dispatch({ type: "SET_PAGINATION", payload: pagination })
         }
-        totalPages={
-          pageable.totalPages > 1
-            ? pageable.totalPages + 1
-            : pageable.totalPages
-        }
+        totalPages={pageable.totalPages}
       />
     </section>
   );

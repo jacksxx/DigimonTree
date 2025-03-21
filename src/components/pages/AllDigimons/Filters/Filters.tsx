@@ -1,7 +1,8 @@
 import type React from "react";
-import { type Dispatch, type SetStateAction, useState } from "react";
+import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 import * as S from "./styles";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface FiltersProps {
   filters: {
@@ -31,8 +32,11 @@ const Filters = ({
   filterOptions,
   setPagination,
 }: FiltersProps) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [inputValue, setInputValue] = useState<string>(filters.digimonName);
   const [isFiltered, setIsFiltered] = useState<boolean>(false);
+
   useDebounce({
     value: inputValue,
     callback: (debouncedValue) => {
@@ -44,6 +48,15 @@ const Filters = ({
       }
     },
   });
+
+  useEffect(() => {
+    const hasQueryParams = searchParams.toString().split("&").length > 1;
+    if (hasQueryParams) {
+      setIsFiltered(true);
+    } else {
+      setIsFiltered(false);
+    }
+  }, [searchParams]);
 
   const handleSeachName = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.value;
@@ -60,6 +73,7 @@ const Filters = ({
       setIsFiltered(true);
     }
   };
+
   const handleResetFilters = () => {
     setFilters({
       digimonName: "",
@@ -70,7 +84,9 @@ const Filters = ({
     setInputValue("");
     setIsFiltered(false);
     setPagination((prev) => ({ ...prev, page: 0 }));
+    window.history.pushState({}, "", "");
   };
+
   return (
     <S.WrapperSearch>
       <S.SearchConteiner>
@@ -111,6 +127,7 @@ const Filters = ({
                 }));
               }
               setIsFiltered(true);
+              setPagination((prev) => ({ ...prev, page: 0 }));
             }}
           >
             <S.Options value="">Selecione uma opção</S.Options>
@@ -142,6 +159,7 @@ const Filters = ({
             ) {
               setIsFiltered((prevState) => !prevState);
             } else setIsFiltered(true);
+            setPagination((prev) => ({ ...prev, page: 0 }));
           }}
         />
       </S.Conteiner>
