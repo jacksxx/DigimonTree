@@ -1,6 +1,6 @@
 import type { Digimon } from "@/types/Digimon";
 import type { DigimonPages } from "@/types/DigimonPage";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { api, apiRotas } from "../api";
 
 type Params = {
@@ -44,18 +44,19 @@ export function useGetAllDigimons(params: Params) {
     data,
     isFetching: isLoading,
     isError,
-  } = useSuspenseQuery({
+  } = useQuery({
     queryKey: ["allDigimons", params],
     queryFn: () => getDigimons(params),
     select: (data) => ({
       digimons: data.content,
       pageable: data.pageable,
     }),
+    enabled: !!params
   });
 
   return {
     digimons: data?.digimons || [],
-    pageable: data?.pageable || {},
+    pageable: data?.pageable || undefined,
     isError,
     isLoading,
   };
@@ -71,7 +72,7 @@ async function getDigimonById(name: string): Promise<Digimon> {
 }
 
 export function useGetDigimonById(name: string) {
-  const { data, isFetching: isLoading } = useSuspenseQuery({
+  const { data, isFetching: isLoading } = useQuery({
     queryKey: ["digimonId", name],
     queryFn: () => getDigimonById(name),
   });

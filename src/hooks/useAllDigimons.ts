@@ -1,7 +1,7 @@
 import { useGetAllAttributes } from "@/services/attibutes/queries";
 import { useGetAllDigimons } from "@/services/digimons/queries";
 import { useGetAllLevels } from "@/services/levels/queires";
-import { type SetStateAction, useEffect, useReducer } from "react";
+import { type SetStateAction, useEffect, useReducer, useState } from "react";
 
 interface iPagination {
   page: number;
@@ -49,14 +49,14 @@ export const getQueryParam = (
 
 const initialState: State = {
   pagination: {
-    page: Number(getQueryParam("page", "0")),
-    pageSize: Number(getQueryParam("pageSize", "20")),
+    page: 0,
+    pageSize: 20,
   },
   filters: {
-    digimonName: getQueryParam("digimonName", ""),
-    attribute: getQueryParam("attribute", ""),
-    level: getQueryParam("level", ""),
-    xAntibody: getQueryParam("xAntibody", false) === "true",
+    digimonName: "",
+    attribute: "",
+    level: "",
+    xAntibody: false,
   },
 };
 
@@ -114,7 +114,31 @@ export function UseAllDigimons() {
     },
   ];
 
+  const hasQueryParams = window.location.search.split("&").length > 1;
+  const [hasQuery, setHasQuery] = useState<boolean>(true);
+  const page = Number(getQueryParam("page", "0"));
+  const digimonName = getQueryParam("digimonName", states.filters.digimonName);
+  const attribute = getQueryParam("attribute", states.filters.attribute);
+  const level = getQueryParam("level", states.filters.level);
+  const xAntibody = getQueryParam("xAntibody", false) === "true";
+
   useEffect(() => {
+    if (hasQueryParams && hasQuery) {
+      dispatch({
+        type: "SET_PAGINATION",
+        payload: { page: page, pageSize: 20 },
+      });
+      dispatch({
+        type: "SET_FILTERS",
+        payload: {
+          digimonName,
+          attribute,
+          level,
+          xAntibody,
+        },
+      });
+      setHasQuery(false);
+    }
     const query = new URLSearchParams();
 
     query.set("page", String(states.pagination.page));
@@ -131,9 +155,23 @@ export function UseAllDigimons() {
     if (states.filters.xAntibody) {
       query.set("xAntibody", String(states.filters.xAntibody));
     }
+
     const newUrl = `/digimons?${query.toString()}`;
-    window.history.pushState({}, "", newUrl);
-  }, [states]);
+
+    // Evita atualizar a URL se já estiver correta
+    if (window.location.search !== query.toString()) {
+      window.history.pushState({}, "", newUrl);
+    }
+  }, [
+    states,
+    hasQueryParams,
+    hasQuery,
+    page,
+    digimonName,
+    attribute,
+    level,
+    xAntibody,
+  ]);
 
   return {
     states,

@@ -15,7 +15,7 @@ const Pagination = ({
   setPagination,
   totalPages,
 }: PaginationProps) => {
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<number>(0);
   useDebounce({
     value: inputValue,
     callback: (debounceValue) => {
@@ -35,15 +35,19 @@ const Pagination = ({
 
   const handlePrevClick = () => {
     handlePageChange(pagination.page - 1);
+    setInputValue((prev) => prev - 1);
   };
 
   const handleNextClick = () => {
     handlePageChange(pagination.page + 1);
+    setInputValue((prev) => prev + 1);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    setInputValue(value);
+    setInputValue(Number(value));
+    setPagination((prev) => ({ ...prev, page: Number(value) }));
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -57,7 +61,7 @@ const Pagination = ({
             type="tel"
             min={1}
             max={totalPages}
-            value={inputValue || pagination.page.toString()}
+            value={pagination.page}
             onChange={handleInputChange}
           />
           <S.TotalPages>{`/ ${totalPages}`}</S.TotalPages>

@@ -7,6 +7,7 @@ import Pagination from "@/components/Pagination/Pagination";
 import * as S from "./styles";
 import Filters from "./Filters/Filters";
 import { UseAllDigimons } from "@/hooks/useAllDigimons";
+import { Suspense } from "react";
 
 const AllDigimons = () => {
   const {
@@ -39,13 +40,15 @@ const AllDigimons = () => {
           }
         />
       </S.ContainerSearch>
-      {digimons ? <DigimonList digimons={digimons} /> : <NoDataMessage />}
+      <Suspense fallback={<DigimonList digimons={[]} />}>
+        {digimons ? <DigimonList digimons={digimons} /> : <NoDataMessage />}
+      </Suspense>
       <Pagination
         pagination={states.pagination}
         setPagination={(pagination) =>
           dispatch({ type: "SET_PAGINATION", payload: pagination })
         }
-        totalPages={pageable.totalPages}
+        totalPages={Number(pageable?.totalPages)}
       />
     </section>
   );
