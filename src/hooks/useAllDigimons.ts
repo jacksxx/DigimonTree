@@ -114,7 +114,6 @@ export function UseAllDigimons() {
     },
   ];
 
-  const hasQueryParams = window.location.search.split("&").length > 1;
   const [hasQuery, setHasQuery] = useState<boolean>(true);
   const page = Number(getQueryParam("page", "0"));
   const digimonName = getQueryParam("digimonName", states.filters.digimonName);
@@ -123,6 +122,9 @@ export function UseAllDigimons() {
   const xAntibody = getQueryParam("xAntibody", false) === "true";
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const hasQueryParams = params.toString().length > 0;
     if (hasQueryParams && hasQuery) {
       dispatch({
         type: "SET_PAGINATION",
@@ -139,6 +141,7 @@ export function UseAllDigimons() {
       });
       setHasQuery(false);
     }
+
     const query = new URLSearchParams();
 
     query.set("page", String(states.pagination.page));
@@ -162,16 +165,7 @@ export function UseAllDigimons() {
     if (window.location.search !== query.toString()) {
       window.history.pushState({}, "", newUrl);
     }
-  }, [
-    states,
-    hasQueryParams,
-    hasQuery,
-    page,
-    digimonName,
-    attribute,
-    level,
-    xAntibody,
-  ]);
+  }, [states, hasQuery, page, digimonName, attribute, level, xAntibody]);
 
   return {
     states,
