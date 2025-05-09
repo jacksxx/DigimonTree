@@ -1,6 +1,6 @@
 import type React from "react";
 import * as S from "./styles";
-import { useState, type Dispatch, type SetStateAction } from "react";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import { useDebounce } from "@/hooks/useDebounce";
 
@@ -44,11 +44,18 @@ const Pagination = ({
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setInputValue(Number(value));
-    setPagination((prev) => ({ ...prev, page: Number(value) }));
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    const value = Number(event.target.value);
+    if (!Number.isNaN(value)) {
+      const clampedPage = Math.max(0, Math.min(value, totalPages - 1));
+      setInputValue(clampedPage);
+      setPagination((prev) => ({ ...prev, page: clampedPage }));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
+
+  useEffect(() => {
+    setInputValue(pagination.page);
+  }, [pagination.page]);
 
   return (
     <S.Container>
@@ -59,7 +66,7 @@ const Pagination = ({
         <S.FormContainer>
           <S.InputPage
             type="tel"
-            min={1}
+            min={0}
             max={totalPages}
             value={pagination.page}
             onChange={handleInputChange}

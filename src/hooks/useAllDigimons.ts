@@ -140,30 +140,29 @@ export function UseAllDigimons() {
         },
       });
       setHasQuery(false);
-    }
+    } else {
+      const query = new URLSearchParams();
+      query.set("page", String(states.pagination.page));
 
-    const query = new URLSearchParams();
+      if (states.filters.digimonName.trim()) {
+        query.set("digimonName", states.filters.digimonName);
+      }
+      if (states.filters.attribute) {
+        query.set("attribute", states.filters.attribute);
+      }
+      if (states.filters.level) {
+        query.set("level", states.filters.level);
+      }
+      if (states.filters.xAntibody) {
+        query.set("xAntibody", String(states.filters.xAntibody));
+      }
 
-    query.set("page", String(states.pagination.page));
+      const newQueryString = `?${query.toString()}`;
 
-    if (states.filters.digimonName.trim()) {
-      query.set("digimonName", states.filters.digimonName);
-    }
-    if (states.filters.attribute) {
-      query.set("attribute", states.filters.attribute);
-    }
-    if (states.filters.level) {
-      query.set("level", states.filters.level);
-    }
-    if (states.filters.xAntibody) {
-      query.set("xAntibody", String(states.filters.xAntibody));
-    }
-
-    const newUrl = `/digimons?${query.toString()}`;
-
-    // Evita atualizar a URL se já estiver correta
-    if (window.location.search !== query.toString()) {
-      window.history.pushState({}, "", newUrl);
+      if (window.location.search !== newQueryString) {
+        const newUrl = `/digimons${newQueryString}`;
+        window.history.replaceState({}, "", newUrl);
+      }
     }
   }, [states, hasQuery, page, digimonName, attribute, level, xAntibody]);
 

@@ -8,8 +8,8 @@ const DigimonList = ({ digimons }: { digimons: DigimonPages["content"] }) => {
     <S.ListaUl>
       {digimons.map((digimon) => (
         <S.ListaLI key={digimon.id}>
-          <Link key={digimon.id} href={`/digimons/${digimon.name}`}>
-            <S.CardContainer key={digimon.id}>
+          <Link href={`/digimons/${digimon.name}`}>
+            <S.CardContainer>
               <S.ImageWrapper>
                 <Image
                   alt={digimon.name}
