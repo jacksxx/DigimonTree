@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 export function useDebounce<T>({
   value,
-  delay = 350,
+  delay = 500,
   callback,
 }: {
   value: T;

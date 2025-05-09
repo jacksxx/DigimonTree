@@ -16,14 +16,21 @@ const Pagination = ({
   totalPages,
 }: PaginationProps) => {
   const [inputValue, setInputValue] = useState<number>(0);
+  const [isTyping, setIsTyping] = useState(false);
+
   useDebounce({
     value: inputValue,
     callback: (debounceValue) => {
-      if (debounceValue && !Number.isNaN(Number(debounceValue))) {
-        const pageNumber = Number(debounceValue);
-        const clampedPage = Math.max(0, Math.min(pageNumber, totalPages));
+      if (
+        isTyping &&
+        debounceValue !== pagination.page &&
+        !Number.isNaN(debounceValue)
+      ) {
+        const clampedPage = Math.max(0, Math.min(debounceValue, totalPages));
         setPagination((prev) => ({ ...prev, page: clampedPage }));
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
+      setIsTyping(false);
     },
   });
 
@@ -46,10 +53,11 @@ const Pagination = ({
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
     if (!Number.isNaN(value)) {
-      const clampedPage = Math.max(0, Math.min(value, totalPages - 1));
+      const clampedPage = Math.max(0, Math.min(value, totalPages));
+      setIsTyping(true); // usuário está digitando
       setInputValue(clampedPage);
-      setPagination((prev) => ({ ...prev, page: clampedPage }));
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      // setPagination((prev) => ({ ...prev, page: clampedPage }));
+      // window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -68,7 +76,7 @@ const Pagination = ({
             type="tel"
             min={0}
             max={totalPages}
-            value={pagination.page}
+            value={inputValue}
             onChange={handleInputChange}
           />
           <S.TotalPages>{`/ ${totalPages}`}</S.TotalPages>
