@@ -22,7 +22,7 @@ const Pagination = ({
     callback: (debouncedValue) => {
       if (
         debouncedValue !== pagination.page &&
-        debouncedValue >= 1 &&
+        debouncedValue >= 0 &&
         debouncedValue <= totalPages
       ) {
         setPagination((prev) => ({ ...prev, page: debouncedValue }));
@@ -35,7 +35,7 @@ const Pagination = ({
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [pagination.page]);
 
-  const clampPage = (page: number) => Math.min(Math.max(page, 1), totalPages);
+  const clampPage = (page: number) => Math.min(Math.max(page, 0), totalPages);
 
   const handlePageChange = (pageNumber: number) => {
     const clamped = clampPage(pageNumber);

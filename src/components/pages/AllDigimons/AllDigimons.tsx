@@ -1,6 +1,8 @@
 "use client";
 
-import DigimonList from "@/components/pages/AllDigimons/DigimonList";
+import DigimonList, {
+  DigimonListSkeleton,
+} from "@/components/pages/AllDigimons/DigimonList";
 import NoDataMessage from "@/components/common/NoData/NoDataMessage";
 import Pagination from "@/components/Pagination/Pagination";
 import * as S from "./styles";
@@ -30,10 +32,11 @@ const AllDigimons = () => {
       </S.ContainerSearch>
 
       {digimons ? (
-        <DigimonList
-          digimons={digimons}
-          pageSize={states.pagination.pageSize}
-        />
+        <Suspense
+          fallback={<DigimonListSkeleton count={states.pagination.pageSize} />}
+        >
+          <DigimonList digimons={digimons} />
+        </Suspense>
       ) : (
         <NoDataMessage />
       )}
