@@ -1,7 +1,13 @@
-import Digimon from "@/components/pages/DigimonId/Digimon";
+"use client";
+import Digimon, { DigimonSkeleton } from "@/components/pages/DigimonId/Digimon";
+import { Suspense } from "react";
 
 const page = () => {
-  return <Digimon />;
+  return (
+    <Suspense fallback={<DigimonSkeleton />}>
+      <Digimon />
+    </Suspense>
+  );
 };
 
 export default page;

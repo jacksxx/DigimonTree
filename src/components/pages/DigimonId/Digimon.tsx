@@ -1,8 +1,6 @@
 "use client";
 import DigiCard from "@/components/pages/DigimonId/DigiCard";
 import EvoList from "@/components/pages/DigimonId/Evolutions/EvoList";
-import Loading from "@/components/common/Loading/Loading";
-import NoDataMessage from "@/components/common/NoData/NoDataMessage";
 import { useState } from "react";
 import * as S from "./styles";
 import { SlArrowLeftCircle } from "react-icons/sl";
@@ -15,18 +13,12 @@ const Digimon = () => {
   const router = useRouter();
   const params = useParams();
   const slug = String(params.slug).toLocaleLowerCase();
-  const { digimon, isLoading } = useGetDigimonById(slug);
+  const { digimon } = useGetDigimonById(slug);
   const [showEvolutions, setShowEvolutions] = useState<{
     prev: boolean;
     next: boolean;
   }>({ prev: false, next: false });
 
-  if (isLoading) {
-    return <Loading message="Carregando digimon" />;
-  }
-  if (!digimon) {
-    return <NoDataMessage />;
-  }
   return (
     <>
       <S.BackButton>
@@ -58,7 +50,7 @@ const Digimon = () => {
             Evoluções Anteriores
           </S.EvoLabel>
           <EvoList
-            key={'prev'}
+            key={"prev"}
             isNextEvolution={false}
             evolutions={digimon.priorEvolutions}
             showEvolutions={showEvolutions.prev}
@@ -76,7 +68,7 @@ const Digimon = () => {
             Próximas Evoluções
           </S.EvoLabel>
           <EvoList
-            key={'next'}
+            key={"next"}
             isNextEvolution={true}
             evolutions={digimon.nextEvolutions}
             showEvolutions={showEvolutions.next}
@@ -88,3 +80,43 @@ const Digimon = () => {
 };
 
 export default Digimon;
+
+export const DigimonSkeleton = () => {
+  return (
+    <>
+      <S.BackButtonSkeleton>
+        <S.Link>
+          <SlArrowLeftCircle />
+        </S.Link>
+      </S.BackButtonSkeleton>
+
+      <S.CardContainer>
+        <S.DigiCardSkeleton>
+          <S.ImageSkeleton />
+          <S.NameSkeleton />
+          <S.InfoWrapperSkeleton>
+            <S.InfoBlockSkeleton />
+            <S.InfoBlockSkeleton />
+            <S.InfoBlockSkeleton />
+          </S.InfoWrapperSkeleton>
+        </S.DigiCardSkeleton>
+      </S.CardContainer>
+
+      <S.InfoSection>
+        <S.DescriptionSkeleton />
+        <S.SkillsSkeleton />
+      </S.InfoSection>
+
+      <S.EvoContainer>
+        <S.EvoWrapper>
+          <S.EvoLabelSkeleton />
+          <S.EvoListSkeleton />
+        </S.EvoWrapper>
+        <S.EvoWrapper>
+          <S.EvoLabelSkeleton />
+          <S.EvoListSkeleton />
+        </S.EvoWrapper>
+      </S.EvoContainer>
+    </>
+  );
+};

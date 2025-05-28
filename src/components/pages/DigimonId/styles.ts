@@ -1,5 +1,5 @@
 import { colors, fonts } from "@/components/common/css";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 //styles of DigiCard
 
@@ -233,4 +233,130 @@ export const FieldSetName = styled.p<{
   border-radius: 9px;
   font-weight: ${fonts.semibold};
   display: ${({ $visible }) => ($visible ? "flex" : "none")};
+`;
+
+// Skeleton pulse animation
+const pulse = keyframes`
+  0% {
+    background-color: #eeeeee;
+  }
+  50% {
+    background-color: #dddddd;
+  }
+  100% {
+    background-color: #eeeeee;
+  }
+`;
+
+export const BackButtonSkeleton = styled.button`
+  width: 65px;
+  height: 35px;
+  border-radius: 9999px;
+  background: linear-gradient(to bottom, #ef4444, rgba(0, 0, 0, 0.8));
+  border: 2px solid #fcd34d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: ${pulse} 1.5s ease-in-out infinite;
+  margin-bottom: 2.5rem;
+`;
+
+
+
+export const DigiCardSkeleton = styled.div`
+  width: 350px;
+  min-width: 300px;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px black;
+  background: linear-gradient(
+    -72deg,
+    #ffde45,
+    #ffffff 16%,
+    #ffde45 21%,
+    #ffffff 24%,
+    #452100 27%,
+    #ffde45 36%,
+    #ffffff 45%,
+    #ffffff 60%,
+    #ffde45 72%,
+    #ffffff 80%,
+    #ffde45 84%,
+    #452100
+  );
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: ${pulse} 1.5s ease-in-out infinite;
+`;
+
+export const ImageSkeleton = styled.div`
+  width: 100%;
+  height: 350px;
+  border-radius: 0.125rem;
+  background-color: #ddd;
+`;
+
+export const NameSkeleton = styled.div`
+  height: 30px;
+  width: 60%;
+  margin: 0 auto;
+  border-radius: 5px;
+  background-color: #ddd;
+`;
+
+export const InfoWrapperSkeleton = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+`;
+
+export const InfoBlockSkeleton = styled.div`
+  height: 20px;
+  border-radius: 5px;
+  background-color: #ddd;
+`;
+
+export const InfoSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  @media (min-width: 1024px) {
+    flex-direction: row;
+  }
+`;
+
+export const DescriptionSkeleton = styled.div`
+  flex: 1;
+  height: 120px;
+  border-radius: 8px;
+  background-color: #ddd;
+  animation: ${pulse} 1.5s ease-in-out infinite;
+`;
+
+export const SkillsSkeleton = styled.div`
+  flex: 1;
+  height: 120px;
+  border-radius: 8px;
+  background-color: #ddd;
+  animation: ${pulse} 1.5s ease-in-out infinite;
+`;
+
+export const EvoLabelSkeleton = styled.div`
+  width: 140px;
+  height: 30px;
+  border-radius: 20px;
+  background-color: #fbbf24; // amarelo parecido com o botão real
+  box-shadow: 0 8px 8px black;
+  border: 2px solid rgba(0, 0, 0, 1);
+  animation: ${pulse} 1.5s ease-in-out infinite;
+`;
+
+export const EvoListSkeleton = styled.div`
+  width: 100%;
+  height: 80px;
+  border-radius: 8px;
+  background-color: #ddd;
+  animation: ${pulse} 1.5s ease-in-out infinite;
 `;

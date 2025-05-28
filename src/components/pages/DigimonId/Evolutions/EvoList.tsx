@@ -31,7 +31,7 @@ const EvoList = ({
               ))}
             </S.ListUl>
           ) : (
-            <NoDataMessage />
+            <NoDataMessage message="Evoluções Não Encontradas"/>
           )}
         </div>
       )}

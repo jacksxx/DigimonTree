@@ -71,7 +71,7 @@ async function getDigimonById(name: string): Promise<Digimon> {
 }
 
 export function useGetDigimonById(name: string) {
-  const { data, isFetching: isLoading } = useQuery({
+  const { data, isFetching: isLoading } = useSuspenseQuery({
     queryKey: ["digimonId", name],
     queryFn: () => getDigimonById(name),
   });
