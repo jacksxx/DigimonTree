@@ -16,55 +16,44 @@ const Pagination = ({
   totalPages,
 }: PaginationProps) => {
   const [inputValue, setInputValue] = useState<number>(0);
-  const [isTyping, setIsTyping] = useState(false);
 
   useDebounce({
     value: inputValue,
-    callback: (debounceValue) => {
+    callback: (debouncedValue) => {
       if (
-        isTyping &&
-        debounceValue !== pagination.page &&
-        !Number.isNaN(debounceValue)
+        debouncedValue !== pagination.page &&
+        debouncedValue >= 1 &&
+        debouncedValue <= totalPages
       ) {
-        const clampedPage = Math.max(0, Math.min(debounceValue, totalPages));
-        setPagination((prev) => ({ ...prev, page: clampedPage }));
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        setPagination((prev) => ({ ...prev, page: debouncedValue }));
       }
-      setIsTyping(false);
     },
   });
 
-  const handlePageChange = (pageNumber: number) => {
-    const clampedPage = Math.max(0, Math.min(pageNumber, totalPages));
-    setPagination((prev) => ({ ...prev, page: clampedPage }));
+  useEffect(() => {
+    setInputValue(pagination.page);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pagination.page]);
+
+  const clampPage = (page: number) => Math.min(Math.max(page, 1), totalPages);
+
+  const handlePageChange = (pageNumber: number) => {
+    const clamped = clampPage(pageNumber);
+    if (clamped !== pagination.page) {
+      setPagination((prev) => ({ ...prev, page: clamped }));
+    }
   };
 
-  const handlePrevClick = () => {
-    handlePageChange(pagination.page - 1);
-    setInputValue((prev) => prev - 1);
-  };
-
-  const handleNextClick = () => {
-    handlePageChange(pagination.page + 1);
-    setInputValue((prev) => prev + 1);
-  };
+  const handlePrevClick = () => handlePageChange(pagination.page - 1);
+  const handleNextClick = () => handlePageChange(pagination.page + 1);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
     if (!Number.isNaN(value)) {
-      const clampedPage = Math.max(0, Math.min(value, totalPages));
-      setIsTyping(true); // usuário está digitando
-      setInputValue(clampedPage);
-      // setPagination((prev) => ({ ...prev, page: clampedPage }));
-      // window.scrollTo({ top: 0, behavior: "smooth" });
+      setInputValue(clampPage(value));
     }
   };
-
-  useEffect(() => {
-    setInputValue(pagination.page);
-  }, [pagination.page]);
-
+  
   return (
     <S.Container>
       <S.Wrapper>

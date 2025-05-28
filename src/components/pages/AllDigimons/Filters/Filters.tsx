@@ -1,8 +1,15 @@
+"use client";
+
 import type React from "react";
-import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
+import {
+  type Dispatch,
+  type SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 import * as S from "./styles";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 interface FiltersProps {
   filters: {
@@ -32,7 +39,6 @@ const Filters = ({
   filterOptions,
   setPagination,
 }: FiltersProps) => {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [inputValue, setInputValue] = useState<string>(filters.digimonName);
   const [isFiltered, setIsFiltered] = useState<boolean>(false);
@@ -177,3 +183,28 @@ const Filters = ({
 };
 
 export default Filters;
+
+export function DigimonSearchSkeleton() {
+  return (
+    <S.WrapperSearch>
+      <S.SearchConteiner>
+        <S.SkeletonLabel />
+        <S.SkeletonInput />
+      </S.SearchConteiner>
+
+      {[1, 2, 3].map((i) => (
+        <S.Conteiner key={i} className="mx-5">
+          <S.SkeletonLabel />
+          <S.SkeletonSelect />
+        </S.Conteiner>
+      ))}
+
+      <S.Conteiner>
+        <S.SkeletonLabel />
+        <S.SkeletonCheckbox />
+      </S.Conteiner>
+
+      <S.SkeletonButton className="mx-auto" />
+    </S.WrapperSearch>
+  );
+}

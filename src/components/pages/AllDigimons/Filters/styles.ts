@@ -104,3 +104,41 @@ export const Options = styled.option`
   color: ${colors.input};
   font-weight: ${fonts.semibold};
 `;
+
+
+export const SkeletonLabel = styled.div`
+  width: 120px;
+  height: 16px;
+  background-color: ${colors.input_lighter};
+  border-radius: 4px;
+`
+
+export const SkeletonInput = styled.div`
+  width: 300px;
+  height: 40px;
+  background-color: ${colors.input_lighter};
+  border: 1px solid ${colors.foreground};
+  border-radius: 0.375rem;
+`
+
+export const SkeletonSelect = styled.div`
+  width: 300px;
+  height: 35px;
+  background-color: ${colors.input_lighter};
+  border: 1px solid ${colors.input};
+  border-radius: 0.375rem;
+`
+
+export const SkeletonCheckbox = styled.div`
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: ${colors.input_lighter};
+  border-radius: 0.25rem;
+`
+
+export const SkeletonButton = styled.div`
+  width: 140px;
+  height: 35px;
+  background-color: ${colors.input_lighter};
+  border-radius: 0.375rem;
+`

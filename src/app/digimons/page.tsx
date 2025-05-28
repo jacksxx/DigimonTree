@@ -13,6 +13,7 @@ export default async function AllDigimonsPage() {
         page: 1,
         pageSize: 5000,
       }),
+    
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

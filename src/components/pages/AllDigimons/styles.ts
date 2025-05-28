@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const ListaUl = styled.ul`
   display: grid;
@@ -91,4 +91,43 @@ export const LabelSearch = styled.h1`
   color: rgba(234 179 8 / 0.8);
   text-decoration-line: underline;
   text-underline-offset: 2px;
+`;
+
+const pulse = keyframes`
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+`;
+
+export const ImageWrapperSkeleton = styled.div`
+  overflow: hidden;
+  border-radius: 0.75rem;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  max-height: 550px;
+  position: relative;
+  background-color: #e5e7eb;
+  animation: ${pulse} 1.5s ease-in-out infinite;
+
+  @media (min-width: 768px) {
+    min-height: 450px;
+  }
+`;
+
+export const NameWrapperSkeleton = styled.div`
+  margin-top: 0.5rem; /* mt-2 */
+  text-align: center;
+  animation: ${pulse} 1.5s ease-in-out infinite;
+
+  & > div {
+    height: 1rem;
+    width: 75%;
+    border-radius: 0.375rem;
+    background-color: #d1d5db;
+    margin: 0 auto;
+  }
 `;

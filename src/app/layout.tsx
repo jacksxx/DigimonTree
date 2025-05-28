@@ -9,6 +9,20 @@ import StyledComponentsRegistry from "../libs/Registy";
 export const metadata: Metadata = {
   title: "Digimon Tree",
   description: "Search for your favorite digimon here!",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/Digitama-192x192.png",
+    apple: "/Digitama-192x192.png",
+  },
+  applicationName: "Digimon Tree",
+  appleWebApp: {
+    capable: true,
+    title: "Digimon Tree",
+    statusBarStyle: "black-translucent",
+  },
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export default function RootLayout({
