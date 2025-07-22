@@ -41,6 +41,7 @@ const Pagination = ({
     const clamped = clampPage(pageNumber);
     if (clamped !== pagination.page) {
       setPagination((prev) => ({ ...prev, page: clamped }));
+      setInputValue(clamped);
     }
   };
 
@@ -53,7 +54,7 @@ const Pagination = ({
       setInputValue(clampPage(value));
     }
   };
-  
+
   return (
     <S.Container>
       <S.Wrapper>
