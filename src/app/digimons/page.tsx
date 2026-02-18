@@ -1,7 +1,9 @@
 import AllDigimons from "@/components/pages/AllDigimons/AllDigimons";
+import AllDigimonsSkeleton from "@/components/pages/AllDigimons/AllDigimonsSkeleton";
 import { getQueryClient } from "@/libs/queryClient";
 import { getDigimons } from "@/services/digimons/queries";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import { Suspense } from "react";
 
 export default async function AllDigimonsPage() {
   const queryClient = getQueryClient();
@@ -17,7 +19,9 @@ export default async function AllDigimonsPage() {
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <AllDigimons />
+      <Suspense fallback={<AllDigimonsSkeleton />}>
+        <AllDigimons />
+      </Suspense>
     </HydrationBoundary>
   );
 }
