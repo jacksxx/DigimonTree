@@ -1,104 +1,101 @@
+import { useMemo } from "react";
 import { useGetAllAttributes } from "@/services/attibutes/queries";
 import { useGetAllDigimons } from "@/services/digimons/queries";
 import { useGetAllLevels } from "@/services/levels/queires";
-import { type SetStateAction, useEffect, useReducer, useState } from "react";
+import { useFilters } from "./useFilters";
+import type { FiltersConfig } from "@/types/filters";
 
-interface iPagination {
-  page: number;
-  pageSize: number;
-}
-
-interface iFilters {
-  digimonName: string;
-  attribute: string;
-  level: string;
-  xAntibody: boolean;
-}
-
-interface State {
-  pagination: iPagination;
-  filters: iFilters;
-}
-
-type Action =
-  | { type: "SET_PAGINATION"; payload: SetStateAction<iPagination> }
-  | { type: "SET_FILTERS"; payload: SetStateAction<iFilters> };
-
-export const getQueryParam = (
-  param: string,
-  defaultValue: string | boolean
-): string => {
-  if (typeof window === "undefined") {
-    return String(defaultValue);
-  }
-
-  const searchParams = window.location.search;
-
-  if (!searchParams) return String(defaultValue);
-
-  const queryParam = new URLSearchParams(searchParams).get(param);
-
-  if (queryParam === null) return String(defaultValue);
-
-  if (param === "xAntibody") {
-    return queryParam === "true" ? "true" : "false";
-  }
-
-  return queryParam;
-};
-
-const initialState: State = {
-  pagination: {
-    page: 0,
-    pageSize: 20,
-  },
-  filters: {
-    digimonName: "",
-    attribute: "",
-    level: "",
-    xAntibody: false,
-  },
-};
-
-function reducer(state: State, action: Action): State {
-  switch (action.type) {
-    case "SET_PAGINATION":
-      return {
-        ...state,
-        pagination:
-          typeof action.payload === "function"
-            ? action.payload(state.pagination)
-            : action.payload,
-      };
-    case "SET_FILTERS":
-      return {
-        ...state,
-        filters:
-          typeof action.payload === "function"
-            ? action.payload(state.filters)
-            : action.payload,
-      };
-    default:
-      return state;
-  }
-}
+const ITEMS_PER_PAGE = 20;
 
 export function UseAllDigimons() {
-  const [states, dispatch] = useReducer(reducer, initialState);
+  // Configuração dos filtros
+  const filtersConfig: FiltersConfig = {
+    filters: [
+      {
+        paramName: "attribute",
+        uiStateName: "isAttributeOpen",
+        toggleFunctionName: "toggleAttribute",
+        initialOpen: true,
+        type: "string",
+      },
+      {
+        paramName: "level",
+        uiStateName: "isLevelOpen",
+        toggleFunctionName: "toggleLevel",
+        initialOpen: true,
+        type: "string",
+      },
+      {
+        paramName: "digimonName",
+        uiStateName: "isDigimonNameOpen",
+        toggleFunctionName: "setDigimonName",
+        initialOpen: false,
+        type: "string",
+      },
+      {
+        paramName: "xAntibody",
+        uiStateName: "isXAntibodyOpen",
+        toggleFunctionName: "setXAntibody",
+        initialOpen: true,
+        type: "boolean",
+      },
+    ],
+  };
 
-  const { digimons, isError, isLoading, pageable } = useGetAllDigimons({
-    page: states.pagination.page,
-    pageSize: states.pagination.pageSize,
-    name: states.filters.digimonName,
-    attribute: states.filters.attribute,
-    level: states.filters.level,
-    xAntibody: states.filters.xAntibody,
-  });
+  // Usa o hook genérico
+  const {
+    currentPage,
+    selectedFilters,
+    filterUIStates,
+    toggleFunctions,
+    setUIStateFunctions,
+    setPage,
+    clearFilters,
+    hasActiveFilters,
+  } = useFilters(filtersConfig);
+
+  // Extrai valores específicos (para facilitar o uso)
+  const selectedAttribute = (selectedFilters.attribute as string) || "";
+  const selectedLevel = (selectedFilters.level as string) || "";
+  const selectedDigimonName = (selectedFilters.digimonName as string) || "";
+  const selectedXAntibody = (selectedFilters.xAntibody as boolean) || false;
+
+  const isAttributeOpen = filterUIStates.isAttributeOpen;
+  const isLevelOpen = filterUIStates.isLevelOpen;
+  const isDigimonNameOpen = filterUIStates.isDigimonNameOpen;
+  const isXAntibodyOpen = filterUIStates.isXAntibodyOpen;
+
+  const toggleAttribute = toggleFunctions.toggleAttribute;
+  const toggleLevel = toggleFunctions.toggleLevel;
+  const setDigimonName = toggleFunctions.setDigimonName;
+  const setXAntibody = toggleFunctions.setXAntibody;
+
+  const setIsAttributeOpen = setUIStateFunctions.setIsAttributeOpen;
+  const setIsLevelOpen = setUIStateFunctions.setIsLevelOpen;
+  const setIsDigimonNameOpen = setUIStateFunctions.setIsDigimonNameOpen;
+  const setIsXAntibodyOpen = setUIStateFunctions.setIsXAntibodyOpen;
+
+  // Busca dados das APIs
   const { levels } = useGetAllLevels();
   const { attributes } = useGetAllAttributes();
 
+  // Prepara os query params para a API de digimons
+  const queryParams = useMemo(
+    () => ({
+      page: currentPage - 1, // API usa 0-based indexing
+      pageSize: ITEMS_PER_PAGE,
+      name: selectedDigimonName.trim() || undefined,
+      attribute: selectedAttribute || undefined,
+      level: selectedLevel || undefined,
+      xAntibody: selectedXAntibody || undefined,
+    }),
+    [currentPage, selectedDigimonName, selectedAttribute, selectedLevel, selectedXAntibody]
+  );
+
+  const { digimons, isError, isLoading, pageable } = useGetAllDigimons(queryParams);
+
   const filterOptions: {
-    key: keyof Omit<typeof states.filters, "xAntibody">;
+    key: "attribute" | "level";
     title: string;
     options: { label: string; value: string }[];
   }[] = [
@@ -114,64 +111,44 @@ export function UseAllDigimons() {
     },
   ];
 
-  const [hasQuery, setHasQuery] = useState<boolean>(true);
-  const page = Number(getQueryParam("page", "0"));
-  const digimonName = getQueryParam("digimonName", states.filters.digimonName);
-  const attribute = getQueryParam("attribute", states.filters.attribute);
-  const level = getQueryParam("level", states.filters.level);
-  const xAntibody = getQueryParam("xAntibody", false) === "true";
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const params = new URLSearchParams(window.location.search);
-    const hasQueryParams = params.toString().length > 0;
-    if (hasQueryParams && hasQuery) {
-      dispatch({
-        type: "SET_PAGINATION",
-        payload: { page: page, pageSize: 20 },
-      });
-      dispatch({
-        type: "SET_FILTERS",
-        payload: {
-          digimonName,
-          attribute,
-          level,
-          xAntibody,
-        },
-      });
-      setHasQuery(false);
-    }
-    const query = new URLSearchParams();
-    query.set("page", String(states.pagination.page));
-
-    if (states.filters.digimonName.trim()) {
-      query.set("digimonName", states.filters.digimonName);
-    }
-    if (states.filters.attribute) {
-      query.set("attribute", states.filters.attribute);
-    }
-    if (states.filters.level) {
-      query.set("level", states.filters.level);
-    }
-    if (states.filters.xAntibody) {
-      query.set("xAntibody", String(states.filters.xAntibody));
-    }
-
-    const newQueryString = `?${query.toString()}`;
-
-    if (window.location.search !== newQueryString) {
-      const newUrl = `/digimons${newQueryString}`;
-      window.history.replaceState({}, "", newUrl);
-    }
-  }, [states, hasQuery, page, digimonName, attribute, level, xAntibody]);
-
   return {
-    states,
+    // Dados dos digimons
     digimons,
-    filterOptions,
     isError,
     isLoading,
     pageable,
-    dispatch,
+
+    // Filtros e paginação
+    currentPage,
+    selectedDigimonName,
+    selectedAttribute,
+    selectedLevel,
+    selectedXAntibody,
+    hasActiveFilters,
+
+    // UI states
+    isAttributeOpen,
+    isLevelOpen,
+    isDigimonNameOpen,
+    isXAntibodyOpen,
+
+    // Funções para alterar filtros
+    setDigimonName,
+    toggleAttribute,
+    toggleLevel,
+    setXAntibody,
+
+    // Funções para estados de UI
+    setIsAttributeOpen,
+    setIsLevelOpen,
+    setIsDigimonNameOpen,
+    setIsXAntibodyOpen,
+
+    // Funções utilitárias
+    setPage,
+    clearFilters,
+
+    // Opções para os filtros
+    filterOptions,
   };
 }

@@ -11,8 +11,23 @@ import { UseAllDigimons } from "@/hooks/useAllDigimons";
 import { Suspense } from "react";
 
 const AllDigimons = () => {
-  const { digimons, filterOptions, pageable, states, dispatch } =
-    UseAllDigimons();
+  const {
+    digimons,
+    filterOptions,
+    pageable,
+    currentPage,
+    selectedDigimonName,
+    selectedAttribute,
+    selectedLevel,
+    selectedXAntibody,
+    setDigimonName,
+    toggleAttribute,
+    toggleLevel,
+    setXAntibody,
+    setPage,
+    clearFilters,
+    hasActiveFilters,
+  } = UseAllDigimons();
 
   return (
     <section>
@@ -20,21 +35,23 @@ const AllDigimons = () => {
         <Suspense fallback={<DigimonSearchSkeleton />}>
           <Filters
             filterOptions={filterOptions}
-            filters={states.filters}
-            setFilters={(filters) =>
-              dispatch({ type: "SET_FILTERS", payload: filters })
-            }
-            setPagination={(pagination) =>
-              dispatch({ type: "SET_PAGINATION", payload: pagination })
-            }
+            selectedDigimonName={selectedDigimonName}
+            selectedAttribute={selectedAttribute}
+            selectedLevel={selectedLevel}
+            selectedXAntibody={selectedXAntibody}
+            onDigimonNameChange={setDigimonName}
+            onAttributeChange={toggleAttribute}
+            onLevelChange={toggleLevel}
+            onXAntibodyChange={setXAntibody}
+            onPageChange={setPage}
+            onClearFilters={clearFilters}
+            hasActiveFilters={hasActiveFilters}
           />
         </Suspense>
       </S.ContainerSearch>
 
       {digimons ? (
-        <Suspense
-          fallback={<DigimonListSkeleton count={states.pagination.pageSize} />}
-        >
+        <Suspense fallback={<DigimonListSkeleton count={20} />}>
           <DigimonList digimons={digimons} />
         </Suspense>
       ) : (
@@ -42,10 +59,8 @@ const AllDigimons = () => {
       )}
 
       <Pagination
-        pagination={states.pagination}
-        setPagination={(pagination) =>
-          dispatch({ type: "SET_PAGINATION", payload: pagination })
-        }
+        currentPage={currentPage}
+        onPageChange={setPage}
         totalPages={Number(pageable?.totalPages ?? 0)}
       />
     </section>

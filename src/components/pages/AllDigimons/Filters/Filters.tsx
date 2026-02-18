@@ -1,96 +1,63 @@
 "use client";
 
 import type React from "react";
-import {
-  type Dispatch,
-  type SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import { useState } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 import * as S from "./styles";
-import { useSearchParams } from "next/navigation";
 
 interface FiltersProps {
-  filters: {
-    digimonName: string;
-    attribute: string;
-    level: string;
-    xAntibody: boolean;
-  };
-  setFilters: Dispatch<
-    SetStateAction<{
-      digimonName: string;
-      attribute: string;
-      level: string;
-      xAntibody: boolean;
-    }>
-  >;
   filterOptions: {
     key: string;
     title: string;
     options: { label: string; value: string }[];
   }[];
-  setPagination: Dispatch<SetStateAction<{ page: number; pageSize: number }>>;
+  selectedDigimonName: string;
+  selectedAttribute: string;
+  selectedLevel: string;
+  selectedXAntibody: boolean;
+  onDigimonNameChange: (value: string) => void;
+  onAttributeChange: (value: string) => void;
+  onLevelChange: (value: string) => void;
+  onXAntibodyChange: (value: boolean | null) => void;
+  onPageChange: (page: number) => void;
+  onClearFilters: () => void;
+  hasActiveFilters: boolean;
 }
+
 const Filters = ({
-  filters,
-  setFilters,
   filterOptions,
-  setPagination,
+  selectedDigimonName,
+  selectedAttribute,
+  selectedLevel,
+  selectedXAntibody,
+  onDigimonNameChange,
+  onAttributeChange,
+  onLevelChange,
+  onXAntibodyChange,
+  onPageChange,
+  onClearFilters,
+  hasActiveFilters,
 }: FiltersProps) => {
-  const searchParams = useSearchParams();
-  const [inputValue, setInputValue] = useState<string>(filters.digimonName);
-  const [isFiltered, setIsFiltered] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>(selectedDigimonName);
 
   useDebounce({
     value: inputValue,
     callback: (debouncedValue) => {
-      if (debouncedValue.trim() !== filters.digimonName) {
-        setFilters((prev) => ({
-          ...prev,
-          digimonName: debouncedValue.trim() || "",
-        }));
+      if (debouncedValue.trim() !== selectedDigimonName) {
+        onDigimonNameChange(debouncedValue.trim() || "");
       }
     },
   });
 
-  useEffect(() => {
-    const hasQueryParams = searchParams.toString().split("&").length > 1;
-    if (hasQueryParams) {
-      setIsFiltered(true);
-    } else {
-      setIsFiltered(false);
-    }
-  }, [searchParams]);
-
   const handleSeachName = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.value;
     setInputValue(name);
-    setPagination((prev) => ({ ...prev, page: 0 }));
-    if (
-      filters.attribute === "" &&
-      filters.level === "" &&
-      !filters.xAntibody &&
-      event.target.value === ""
-    ) {
-      setIsFiltered(false);
-    } else {
-      setIsFiltered(true);
-    }
+    onPageChange(1); // Reset to page 1 (nuqs expects 1-based indexing)
   };
 
   const handleResetFilters = () => {
-    setFilters({
-      digimonName: "",
-      attribute: "",
-      level: "",
-      xAntibody: false,
-    });
     setInputValue("");
-    setIsFiltered(false);
-    setPagination((prev) => ({ ...prev, page: 0 }));
-    window.history.pushState({}, "", "");
+    onClearFilters(); // nuqs já cuida de atualizar a URL automaticamente
   };
 
   return (
@@ -110,30 +77,20 @@ const Filters = ({
             name={filter.key}
             id={filter.key}
             value={
-              filters[
-                filter.key as keyof Omit<
-                  typeof filters,
-                  "xAntibody" | "digimonName"
-                >
-              ] || ""
+              filter.key === "attribute"
+                ? selectedAttribute
+                : filter.key === "level"
+                  ? selectedLevel
+                  : ""
             }
             onChange={(e) => {
               const newValue = e.target.value;
-              if (
-                filters[
-                  filter.key as keyof Omit<
-                    typeof filters,
-                    "xAntibody" | "digimonName"
-                  >
-                ] !== newValue
-              ) {
-                setFilters((prev) => ({
-                  ...prev,
-                  [filter.key]: newValue,
-                }));
+              if (filter.key === "attribute") {
+                onAttributeChange(newValue);
+              } else if (filter.key === "level") {
+                onLevelChange(newValue);
               }
-              setIsFiltered(true);
-              setPagination((prev) => ({ ...prev, page: 0 }));
+              onPageChange(1); // Reset to page 1
             }}
           >
             <S.Options value="">Selecione uma opção</S.Options>
@@ -149,27 +106,15 @@ const Filters = ({
         <S.LabelFilters>Tem xAntibody?</S.LabelFilters>
         <S.CheckedInput
           type="checkbox"
-          checked={filters.xAntibody}
+          checked={selectedXAntibody}
           onChange={(e) => {
             const checked = e.target.checked;
-            if (filters.xAntibody !== checked) {
-              setFilters((prev) => ({
-                ...prev,
-                xAntibody: checked,
-              }));
-            }
-            if (
-              filters.level === "" &&
-              filters.attribute === "" &&
-              inputValue === ""
-            ) {
-              setIsFiltered((prevState) => !prevState);
-            } else setIsFiltered(true);
-            setPagination((prev) => ({ ...prev, page: 0 }));
+            onXAntibodyChange(checked ? true : null);
+            onPageChange(1); // Reset to page 1
           }}
         />
       </S.Conteiner>
-      {isFiltered && (
+      {hasActiveFilters && (
         <S.ResetButton
           type="button"
           onClick={handleResetFilters}
